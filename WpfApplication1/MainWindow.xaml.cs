@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace WpfApplication1
@@ -22,6 +24,7 @@ namespace WpfApplication1
             coordinatesBinding = new Points();
             dataGrid.ItemsSource = coordinatesPolygon.Collection();
             dataGridBindg.ItemsSource = coordinatesBinding.Collection();
+            EmployeeColection();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -50,6 +53,24 @@ namespace WpfApplication1
         private void buttonClear_Click(object sender, RoutedEventArgs e)
         {
             mainWindowLogic.Clear(coordinatesPolygon, coordinatesBinding);
+        }
+
+        private void EmployeeColection()
+        {
+            EmployeeEntities obj = new EmployeeEntities();
+
+            List<Employee> lstEmployee = obj.Employee.ToList();            
+            shotPerformedFN.ItemsSource = lstEmployee;
+            planDrewFN.ItemsSource = lstEmployee;
+
+            List<Forestry> lstForestry = obj.Forestry.ToList();
+            forestry.ItemsSource = lstForestry;
+
+            List<Leshoz> lstLeshoz = obj.Leshoz.ToList();
+            leshoz.ItemsSource = lstLeshoz;
+
+            List<Felling> lstFelling = obj.Felling.ToList();
+            felling.ItemsSource = lstFelling;
         }
     }
 }

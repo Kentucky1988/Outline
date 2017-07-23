@@ -1,0 +1,183 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище EmployeeModel" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "E:\GITHUB\АБРИС\OUTLINE\WPFAPPLICATION1\EMPLOYEE.MDF.dbo.Employee" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Name" />
+            <PropertyRef Name="Position" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="Position" Type="nvarchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "E:\GITHUB\АБРИС\OUTLINE\WPFAPPLICATION1\EMPLOYEE.MDF.dbo.Felling" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="Felling">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "E:\GITHUB\АБРИС\OUTLINE\WPFAPPLICATION1\EMPLOYEE.MDF.dbo.Forestry" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="Forestry">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "E:\GITHUB\АБРИС\OUTLINE\WPFAPPLICATION1\EMPLOYEE.MDF.dbo.Leshoz" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="Leshoz">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="Хранилище EmployeeModelContainer">
+          <EntitySet Name="Employee" EntityType="Self.Employee" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+[Employee].[Id] AS [Id], 
+[Employee].[Name] AS [Name], 
+[Employee].[Position] AS [Position]
+FROM [dbo].[Employee] AS [Employee]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Felling" EntityType="Self.Felling" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+[Felling].[Id] AS [Id], 
+[Felling].[Name] AS [Name]
+FROM [dbo].[Felling] AS [Felling]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Forestry" EntityType="Self.Forestry" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+[Forestry].[Id] AS [Id], 
+[Forestry].[Name] AS [Name]
+FROM [dbo].[Forestry] AS [Forestry]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Leshoz" EntityType="Self.Leshoz" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+[Leshoz].[Id] AS [Id], 
+[Leshoz].[Name] AS [Name]
+FROM [dbo].[Leshoz] AS [Leshoz]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="EmployeeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Name" />
+            <PropertyRef Name="Position" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Position" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="EmployeeEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Employee" EntityType="Self.Employee" />
+          <EntitySet Name="Forestry" EntityType="EmployeeModel.Forestry" />
+          <EntitySet Name="Felling" EntityType="EmployeeModel.Felling" />
+          <EntitySet Name="Leshoz" EntityType="EmployeeModel.Leshoz" />
+        </EntityContainer>
+        <EntityType Name="Forestry">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Felling">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Leshoz">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище EmployeeModelContainer" CdmEntityContainer="EmployeeEntities">
+          <EntitySetMapping Name="Employee">
+            <EntityTypeMapping TypeName="EmployeeModel.Employee">
+              <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Position" ColumnName="Position" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Forestry">
+            <EntityTypeMapping TypeName="EmployeeModel.Forestry">
+              <MappingFragment StoreEntitySet="Forestry">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Felling">
+            <EntityTypeMapping TypeName="EmployeeModel.Felling">
+              <MappingFragment StoreEntitySet="Felling">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Leshoz">
+            <EntityTypeMapping TypeName="EmployeeModel.Leshoz">
+              <MappingFragment StoreEntitySet="Leshoz">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
