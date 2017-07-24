@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -55,22 +56,45 @@ namespace WpfApplication1
             mainWindowLogic.Clear(coordinatesPolygon, coordinatesBinding);
         }
 
-        private void EmployeeColection()
+        private void EmployeeColection()//выпадающий список
         {
             EmployeeEntities obj = new EmployeeEntities();
 
-            List<Employee> lstEmployee = obj.Employee.ToList();            
-            shotPerformedFN.ItemsSource = lstEmployee;
-            planDrewFN.ItemsSource = lstEmployee;
+            List<Employee> lstEmployee = obj.Employee.ToList();// таблица Employee      
+            shotPerformedFN.ItemsSource = lstEmployee;//зйомку виконав
+            planDrewFN.ItemsSource = lstEmployee;//план накреслив
 
-            List<Forestry> lstForestry = obj.Forestry.ToList();
-            forestry.ItemsSource = lstForestry;
+            List<Forestry> lstForestry = obj.Forestry.ToList();// таблица Forestry
+            forestry.ItemsSource = lstForestry;//лесничество
 
-            List<Leshoz> lstLeshoz = obj.Leshoz.ToList();
-            leshoz.ItemsSource = lstLeshoz;
+            List<Leshoz> lstLeshoz = obj.Leshoz.ToList();// таблица Leshoz
+            leshoz.ItemsSource = lstLeshoz;//лесхоз
 
-            List<Felling> lstFelling = obj.Felling.ToList();
-            felling.ItemsSource = lstFelling;
+            List<Felling> lstFelling = obj.Felling.ToList();// таблица Felling
+            felling.ItemsSource = lstFelling;//рубки
+        }
+
+        private void shotPerformedFN_DropDownClosed(object sender, System.EventArgs e)
+        {
+            SqlConnection cn = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=E:\GitHub\Абрис\Outline\WpfApplication1\Employee.mdf;Integrated Security=True");
+            cn.Open();                    
+            string strSQL = $"SELECT * FROM Employee WHERE Name = '{((ComboBox)sender).Text}'";
+            SqlCommand myCommand = new SqlCommand(strSQL, cn);
+            SqlDataReader dr = myCommand.ExecuteReader();
+            
+            while (dr.Read())
+            {
+                if (((ComboBox)sender).Name == "shotPerformedFN")
+                {
+                    shotPerformed.Text = dr[2].ToString();
+                }
+                else
+                {
+                    planDrew.Text = dr[2].ToString();
+                }
+            }
+
+            cn.Close();
         }
     }
 }

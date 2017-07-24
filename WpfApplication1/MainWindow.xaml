@@ -59,13 +59,13 @@
                     <Label Content=" Зйомку виконав: Посада"/>
                     <TextBox Name="shotPerformed" MinWidth="80" Padding="5"/>
                     <Label Content="П.І.Б."/>
-                    <ComboBox Name="shotPerformedFN" MinWidth="80" Padding="5" DisplayMemberPath="Name"/>
+                    <ComboBox Name="shotPerformedFN" MinWidth="80" Padding="5" DisplayMemberPath="Name" DropDownClosed="shotPerformedFN_DropDownClosed"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="5">
                     <Label Content="План накреслив: Посада"/>
                     <TextBox Name="planDrew" MinWidth="80" Padding="5"/>
                     <Label Content="П.І.Б."/>
-                    <ComboBox Name="planDrewFN"  MinWidth="80" Padding="5" DisplayMemberPath="Name"/>
+                    <ComboBox Name="planDrewFN"  MinWidth="80" Padding="5" DisplayMemberPath="Name" DropDownClosed="shotPerformedFN_DropDownClosed"/>
                 </StackPanel>
             </StackPanel>
             <StackPanel Grid.Column="1" Grid.ColumnSpan="2">
