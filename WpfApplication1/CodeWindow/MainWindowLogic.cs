@@ -62,9 +62,9 @@ namespace WpfApplication1
             Margins.Kvartal = poligon.kvartal.Text;      //квартал
             Margins.Vudel = poligon.vudel.Text;          //видел
             Margins.LableArea = area;                    //площаль
-            Margins.ShotPerformed = poligon.shotPerformed.Text;  // съемку выполнил
+            Margins.ShotPerformed = poligon.shotPerformed.Content.ToString();  // съемку выполнил
             Margins.ShotPerformedFN = poligon.shotPerformedFN.Text; // съемку выполнил ФИО
-            Margins.PlanDrew = poligon.planDrew.Text;            //план начертил
+            Margins.PlanDrew = poligon.planDrew.Content.ToString(); //план начертил
             Margins.PlanDrewFN = poligon.planDrewFN.Text;        //план начертил ФИО
             Margins.PointNumber = (poligon.pointNumber.Text == string.Empty) ? 1 : int.Parse(poligon.pointNumber.Text);//номер точки от которой будут делать привязку
 

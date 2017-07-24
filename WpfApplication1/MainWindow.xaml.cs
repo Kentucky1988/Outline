@@ -25,7 +25,6 @@ namespace WpfApplication1
             coordinatesBinding = new Points();
             dataGrid.ItemsSource = coordinatesPolygon.Collection();
             dataGridBindg.ItemsSource = coordinatesBinding.Collection();
-            EmployeeColection();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -51,50 +50,141 @@ namespace WpfApplication1
             }
         }
 
-        private void buttonClear_Click(object sender, RoutedEventArgs e)
+        private void buttonClear_Click(object sender, RoutedEventArgs e)//очистка 
         {
             mainWindowLogic.Clear(coordinatesPolygon, coordinatesBinding);
         }
 
-        private void EmployeeColection()//выпадающий список
+        private void leshoz_DropDownOpened(object sender, System.EventArgs e)//обновление содержимого выпадающего списка при его открытие
         {
-            EmployeeEntities obj = new EmployeeEntities();
 
-            List<Employee> lstEmployee = obj.Employee.ToList();// таблица Employee      
-            shotPerformedFN.ItemsSource = lstEmployee;//зйомку виконав
-            planDrewFN.ItemsSource = lstEmployee;//план накреслив
+            SqlConnection cn = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=E:\GitHub\Абрис\Outline\WpfApplication1\Employee.mdf;Integrated Security=True");
+            cn.Open();
+            string strSQL = $"SELECT * FROM Leshoz";
+            SqlCommand myCommand = new SqlCommand(strSQL, cn);
+            SqlDataReader dr = myCommand.ExecuteReader();
 
-            List<Forestry> lstForestry = obj.Forestry.ToList();// таблица Forestry
-            forestry.ItemsSource = lstForestry;//лесничество
+            leshoz.Items.Clear();//удаление содержимого выпадающего списка чтоб небыло (список * 2)
 
-            List<Leshoz> lstLeshoz = obj.Leshoz.ToList();// таблица Leshoz
-            leshoz.ItemsSource = lstLeshoz;//лесхоз
+            while (dr.Read())
+            {
+                string sName = dr.GetString(1);
 
-            List<Felling> lstFelling = obj.Felling.ToList();// таблица Felling
-            felling.ItemsSource = lstFelling;//рубки
+                leshoz.Items.Add(sName);// таблица Leshoz               
+            }
+
+            cn.Close();
         }
 
-        private void shotPerformedFN_DropDownClosed(object sender, System.EventArgs e)
+        private void forestry_DropDownOpened(object sender, System.EventArgs e)//обновление содержимого выпадающего списка при его открытие
         {
             SqlConnection cn = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=E:\GitHub\Абрис\Outline\WpfApplication1\Employee.mdf;Integrated Security=True");
-            cn.Open();                    
+            cn.Open();
+            string strSQL = $"SELECT * FROM Forestry";
+            SqlCommand myCommand = new SqlCommand(strSQL, cn);
+            SqlDataReader dr = myCommand.ExecuteReader();
+
+            forestry.Items.Clear();//удаление содержимого выпадающего списка чтоб небыло (список * 2)
+
+            while (dr.Read())
+            {
+                string sName = dr.GetString(1);
+
+                forestry.Items.Add(sName);// таблица Forestry(лесничества)              
+            }
+
+            cn.Close();
+        }
+
+        private void felling_DropDownOpened(object sender, System.EventArgs e)//обновление содержимого выпадающего списка при его открытие
+        {
+            SqlConnection cn = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=E:\GitHub\Абрис\Outline\WpfApplication1\Employee.mdf;Integrated Security=True");
+            cn.Open();
+            string strSQL = $"SELECT * FROM Felling";
+            SqlCommand myCommand = new SqlCommand(strSQL, cn);
+            SqlDataReader dr = myCommand.ExecuteReader();
+
+            felling.Items.Clear();//удаление содержимого выпадающего списка чтоб небыло (список * 2)
+
+            while (dr.Read())
+            {
+                string sName = dr.GetString(1);
+
+                felling.Items.Add(sName);//рубки               
+            }
+
+            cn.Close();
+        }
+
+        private void shotPerformedFN_DropDownOpened(object sender, System.EventArgs e)//обновление содержимого выпадающего списка при его открытие
+        {
+            SqlConnection cn = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=E:\GitHub\Абрис\Outline\WpfApplication1\Employee.mdf;Integrated Security=True");
+            cn.Open();
+            string strSQL = $"SELECT * FROM Employee";
+            SqlCommand myCommand = new SqlCommand(strSQL, cn);
+            SqlDataReader dr = myCommand.ExecuteReader();
+
+            shotPerformedFN.Items.Clear();//удаление содержимого выпадающего списка чтоб небыло (список * 2)
+
+            while (dr.Read())
+            {
+                string sName = dr.GetString(0);
+
+                shotPerformedFN.Items.Add(sName);//зйомку виконав
+            }
+
+            cn.Close();
+        }
+
+        private void planDrewFN_DropDownOpened(object sender, System.EventArgs e)//обновление содержимого выпадающего списка при его открытие
+        {
+            SqlConnection cn = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=E:\GitHub\Абрис\Outline\WpfApplication1\Employee.mdf;Integrated Security=True");
+            cn.Open();
+            string strSQL = $"SELECT * FROM Employee";
+            SqlCommand myCommand = new SqlCommand(strSQL, cn);
+            SqlDataReader dr = myCommand.ExecuteReader();
+                        
+            planDrewFN.Items.Clear();//удаление содержимого выпадающего списка чтоб небыло (список * 2)
+
+            while (dr.Read())
+            {
+                string sName = dr.GetString(0);
+                               
+                planDrewFN.Items.Add(sName);// план накреслив
+            }
+
+            cn.Close();
+        }
+
+        private void shotPerformedFN_DropDownClosed(object sender, System.EventArgs e)//зависимость TextBox от выбора в ComboBox
+        {
+            SqlConnection cn = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=E:\GitHub\Абрис\Outline\WpfApplication1\Employee.mdf;Integrated Security=True");
+            cn.Open();
             string strSQL = $"SELECT * FROM Employee WHERE Name = '{((ComboBox)sender).Text}'";
             SqlCommand myCommand = new SqlCommand(strSQL, cn);
             SqlDataReader dr = myCommand.ExecuteReader();
-            
+
             while (dr.Read())
             {
                 if (((ComboBox)sender).Name == "shotPerformedFN")
                 {
-                    shotPerformed.Text = dr[2].ToString();
+                    shotPerformed.Content = dr[1].ToString();
                 }
                 else
                 {
-                    planDrew.Text = dr[2].ToString();
+                    planDrew.Content = dr[1].ToString();
                 }
             }
 
             cn.Close();
         }
+
+        private void editingLcalDB_Click(object sender, RoutedEventArgs e)//открытие окна редактирования БД
+        {
+            EditingLcalDB showEditingLcalDB = new EditingLcalDB();
+            showEditingLcalDB.Show();
+        }
+
+
     }
 }
