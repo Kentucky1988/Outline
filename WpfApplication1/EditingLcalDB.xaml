@@ -5,26 +5,47 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApplication1"
         mc:Ignorable="d"
-        Title="EditingLcalDB" Height="300" Width="300">
+        Title="EditingLcalDB" Height="500" Width="300" MinHeight="500" MinWidth="300">
     <Grid>
+
         <TabControl>
+
             <TabItem Header="Співробітники">
                 <StackPanel Orientation="Vertical">
-                    <DataGrid Name="employeeDataGrid" HorizontalAlignment="Left" Margin="20,20,20,20" MinHeight="160"/>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                        <Button Content="Зберегти зміни" Width="auto" Height="30"  Click="SaveButton_Click" RenderTransformOrigin="-0.634,0.547" Margin="0,0,20,0" />
+                    <StackPanel Height="350">
+                        <DataGrid Name="employeeDataGrid" HorizontalAlignment="Left" Margin="20,20,20,20" MinHeight="160"/>
                     </StackPanel>
+                    <Button Name="Employee" Content="Зберегти зміни" HorizontalAlignment="Right" Width="auto" Height="30" Margin="0,20,20,0" Click="SaveButton_Click" />
                 </StackPanel>
             </TabItem>
+
             <TabItem Header="Лісгосп">
-                <Grid/>
+                <StackPanel Orientation="Vertical">
+                    <StackPanel Height="350">
+                        <DataGrid Name="leshozDataGrid" HorizontalAlignment="Left" Margin="20,20,20,20" MinHeight="160"/>
+                    </StackPanel>
+                    <Button Name="Leshoz" Content="Зберегти зміни" HorizontalAlignment="Right" Width="auto" Height="30" Margin="0,20,20,0" Click="SaveButton_Click" />
+                </StackPanel>
             </TabItem>
+
             <TabItem Header="Лісництво">
-                <Grid/>
+                <StackPanel Orientation="Vertical">
+                    <StackPanel Height="350">
+                        <DataGrid Name="forestryDataGrid" HorizontalAlignment="Left" Margin="20,20,20,20" MinHeight="160"/>
+                    </StackPanel>
+                    <Button Name="Forestry" Content="Зберегти зміни" HorizontalAlignment="Right" Width="auto" Height="30" Margin="0,20,20,0" Click="SaveButton_Click" />
+                </StackPanel>
             </TabItem>
+
             <TabItem Header="Вид рубки">
-                <Grid/>
+                <StackPanel Orientation="Vertical">
+                    <StackPanel Height="350">
+                        <DataGrid Name="fellingDataGrid" HorizontalAlignment="Left" Margin="20,20,20,20" MinHeight="160"/>
+                    </StackPanel>
+                    <Button Name="Felling" Content="Зберегти зміни" HorizontalAlignment="Right" Width="auto" Height="30" Margin="0,20,20,0" Click="SaveButton_Click" />
+                </StackPanel>
             </TabItem>
+
         </TabControl>
     </Grid>
 </Window>

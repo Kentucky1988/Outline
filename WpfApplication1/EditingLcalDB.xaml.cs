@@ -1,18 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace WpfApplication1
 {
@@ -20,30 +11,39 @@ namespace WpfApplication1
     /// Логика взаимодействия для EditingLcalDB.xaml
     /// </summary>
     public partial class EditingLcalDB : Window
-    {
+    {        
         SqlConnection connection;
         SqlCommand command;
         SqlDataAdapter adapter;
         DataTable dataTable;
         SqlCommandBuilder cmbd;
 
+        ArrayList arrayList = new ArrayList();  
+
         public EditingLcalDB()
         {
             InitializeComponent();
-            EmployeeGrid();
+            connection = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=E:\GitHub\Абрис\Outline\WpfApplication1\Employee.mdf;Integrated Security=True");
+            EmployeeGrid(employeeDataGrid, "Employee");
+            EmployeeGrid(leshozDataGrid, "Leshoz");
+            EmployeeGrid(forestryDataGrid, "Forestry");
+            EmployeeGrid(fellingDataGrid, "Felling");
         }
 
-        private void EmployeeGrid()//отображение Employee в DataGrid
+        private void EmployeeGrid(DataGrid nameGrid, string table)//отображение таблицы БД в DataGrid
         {
             try
             {
-                connection = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=E:\GitHub\Абрис\Outline\WpfApplication1\Employee.mdf;Integrated Security=True");
                 connection.Open();
-                command = new SqlCommand("SELECT * FROM Employee", connection);
+                command = new SqlCommand($"SELECT * FROM {table}", connection);
+                arrayList.Add(command);
                 adapter = new SqlDataAdapter(command);
-                dataTable = new DataTable("Employee");
+                arrayList.Add(adapter);
+                dataTable = new DataTable(table);
+                arrayList.Add(dataTable);
                 adapter.Fill(dataTable);
-                employeeDataGrid.ItemsSource = dataTable.DefaultView;
+                nameGrid.ItemsSource = dataTable.DefaultView;
+                connection.Close();
             }
 
             catch (Exception)
@@ -54,9 +54,41 @@ namespace WpfApplication1
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)//Сохранение изминений БД
         {
+            int x = 0;           
+
+            switch ((sender as Button).Name)
+            {
+                case "Employee":
+                    x = 0;
+                    break;
+                case "Leshoz":
+                    x = 3;
+                    break;
+                case "Forestry":
+                    x = 6;
+                    break;
+                case "Felling":
+                    x = 9;
+                    break;
+                default:                   
+                    break;
+            }
+
+            connection.Open();
+            command = (SqlCommand)arrayList[x];
+            adapter = (SqlDataAdapter)arrayList[x + 1];
+            dataTable = (DataTable)arrayList[x + 2];
             cmbd = new SqlCommandBuilder(adapter);
-            adapter.Update(dataTable);
-            MessageBox.Show("Зміни успішно збережено");
+            try
+            {
+                adapter.Update(dataTable);
+                connection.Close();
+                MessageBox.Show("Зміни успішно збережено");
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Вкажіть П.І.Б. і посаду");
+            }
         }
     }
 }

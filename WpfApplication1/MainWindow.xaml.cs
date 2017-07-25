@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.Linq;
+﻿using System.Data.SqlClient;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -57,7 +55,6 @@ namespace WpfApplication1
 
         private void leshoz_DropDownOpened(object sender, System.EventArgs e)//обновление содержимого выпадающего списка при его открытие
         {
-
             SqlConnection cn = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=E:\GitHub\Абрис\Outline\WpfApplication1\Employee.mdf;Integrated Security=True");
             cn.Open();
             string strSQL = $"SELECT * FROM Leshoz";
@@ -68,7 +65,7 @@ namespace WpfApplication1
 
             while (dr.Read())
             {
-                string sName = dr.GetString(1);
+                string sName = dr.GetString(0);
 
                 leshoz.Items.Add(sName);// таблица Leshoz               
             }
@@ -88,7 +85,7 @@ namespace WpfApplication1
 
             while (dr.Read())
             {
-                string sName = dr.GetString(1);
+                string sName = dr.GetString(0);
 
                 forestry.Items.Add(sName);// таблица Forestry(лесничества)              
             }
@@ -108,7 +105,7 @@ namespace WpfApplication1
 
             while (dr.Read())
             {
-                string sName = dr.GetString(1);
+                string sName = dr.GetString(0);
 
                 felling.Items.Add(sName);//рубки               
             }
@@ -156,7 +153,7 @@ namespace WpfApplication1
             cn.Close();
         }
 
-        private void shotPerformedFN_DropDownClosed(object sender, System.EventArgs e)//зависимость TextBox от выбора в ComboBox
+        private void shotPerformedFN_DropDownClosed(object sender, System.EventArgs e)//зависимость TextBox от выбора в ComboBox таблица Employee
         {
             SqlConnection cn = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=E:\GitHub\Абрис\Outline\WpfApplication1\Employee.mdf;Integrated Security=True");
             cn.Open();
@@ -184,7 +181,5 @@ namespace WpfApplication1
             EditingLcalDB showEditingLcalDB = new EditingLcalDB();
             showEditingLcalDB.Show();
         }
-
-
     }
 }
