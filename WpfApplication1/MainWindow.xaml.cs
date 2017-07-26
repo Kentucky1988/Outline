@@ -28,7 +28,7 @@ namespace WpfApplication1
 
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)//построение семки
         {
             myGrid.Children.Clear();//очистка предыдущего изображения на полигоне
             mainWindowLogic.ActualWidthHeight();//координаты первой точки ХY
@@ -177,6 +177,11 @@ namespace WpfApplication1
         {
             EditingLcalDB showEditingLcalDB = new EditingLcalDB();
             showEditingLcalDB.Show();
+        }
+
+        private void ExitMenuItem_Click(object sender, RoutedEventArgs e)//Выход
+        {
+            this.Close();
         }
     }
 }

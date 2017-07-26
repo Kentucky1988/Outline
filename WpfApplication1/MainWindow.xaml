@@ -18,7 +18,7 @@
         <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Left">
             <Menu>
                 <MenuItem Header="Файл">
-                    <MenuItem Header="Вихід"/>
+                    <MenuItem Header="Вихід" Click="ExitMenuItem_Click" />
                 </MenuItem>
                 <MenuItem Header="Данні">
                     <MenuItem Header="Редагування БД" Click="editingLcalDB_Click"/>
