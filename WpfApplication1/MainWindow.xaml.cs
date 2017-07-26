@@ -8,11 +8,11 @@ namespace WpfApplication1
     /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
-    {
+    {       
         Class1 class1;
         MainWindowLogic mainWindowLogic;
-        Points coordinatesPolygon; //съмка полигона 
-        Points coordinatesBinding; //съмка привязки
+        Points coordinatesPolygon; //съeмка полигона 
+        Points coordinatesBinding; //съeмка привязки
         SqlConnection cn;//подключение к БД
 
         public MainWindow()
@@ -25,10 +25,9 @@ namespace WpfApplication1
             dataGrid.ItemsSource = coordinatesPolygon.Collection();
             dataGridBindg.ItemsSource = coordinatesBinding.Collection();
             cn = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=E:\GitHub\Абрис\Outline\WpfApplication1\Employee.mdf;Integrated Security=True");//подключение к БД
-
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)//построение семки
+        private void Button_Click(object sender, RoutedEventArgs e)//построение съемки
         {
             myGrid.Children.Clear();//очистка предыдущего изображения на полигоне
             mainWindowLogic.ActualWidthHeight();//координаты первой точки ХY
@@ -55,97 +54,43 @@ namespace WpfApplication1
         {
             mainWindowLogic.Clear(coordinatesPolygon, coordinatesBinding);
         }
-
-        private void leshoz_DropDownOpened(object sender, System.EventArgs e)//обновление содержимого выпадающего списка при его открытие
+        
+        private void ComboBox_DropDownOpened(object sender, System.EventArgs e)//обновление содержимого выпадающего списка при его открытие
         {
-            cn.Open();
-            string strSQL = $"SELECT * FROM Leshoz";
-            SqlCommand myCommand = new SqlCommand(strSQL, cn);
-            SqlDataReader dr = myCommand.ExecuteReader();
+            string table = null;
+            ComboBox comboBoxName = sender as ComboBox;
 
-            leshoz.Items.Clear();//удаление содержимого выпадающего списка чтоб небыло (список * 2)
-
-            while (dr.Read())
+            switch (comboBoxName.Name)
             {
-                string sName = dr.GetString(0);
-
-                leshoz.Items.Add(sName);// таблица Leshoz               
+                case "leshoz":
+                    table = "Leshoz";
+                    break;
+                case "forestry":
+                    table = "Forestry";
+                    break;
+                case "felling":
+                    table = "Felling";
+                    break;
+                case "shotPerformedFN":
+                    table = "Employee";
+                    break;
+                case "planDrewFN":
+                    table = "Employee";
+                    break;
             }
-
-            cn.Close();
-        }
-
-        private void forestry_DropDownOpened(object sender, System.EventArgs e)//обновление содержимого выпадающего списка при его открытие
-        {
+           
             cn.Open();
-            string strSQL = $"SELECT * FROM Forestry";
+            string strSQL = $"SELECT * FROM {table}";
             SqlCommand myCommand = new SqlCommand(strSQL, cn);
             SqlDataReader dr = myCommand.ExecuteReader();
 
-            forestry.Items.Clear();//удаление содержимого выпадающего списка чтоб небыло (список * 2)
+            (comboBoxName).Items.Clear();//удаление содержимого выпадающего списка чтоб небыло (список * 2)
 
-            while (dr.Read())
+            while (dr.Read())// добавление колекции в ComoBox      
             {
                 string sName = dr.GetString(0);
 
-                forestry.Items.Add(sName);// таблица Forestry(лесничества)              
-            }
-
-            cn.Close();
-        }
-
-        private void felling_DropDownOpened(object sender, System.EventArgs e)//обновление содержимого выпадающего списка при его открытие
-        {
-            cn.Open();
-            string strSQL = $"SELECT * FROM Felling";
-            SqlCommand myCommand = new SqlCommand(strSQL, cn);
-            SqlDataReader dr = myCommand.ExecuteReader();
-
-            felling.Items.Clear();//удаление содержимого выпадающего списка чтоб небыло (список * 2)
-
-            while (dr.Read())
-            {
-                string sName = dr.GetString(0);
-
-                felling.Items.Add(sName);//рубки               
-            }
-
-            cn.Close();
-        }
-
-        private void shotPerformedFN_DropDownOpened(object sender, System.EventArgs e)//обновление содержимого выпадающего списка при его открытие
-        {
-            cn.Open();
-            string strSQL = $"SELECT * FROM Employee";
-            SqlCommand myCommand = new SqlCommand(strSQL, cn);
-            SqlDataReader dr = myCommand.ExecuteReader();
-
-            shotPerformedFN.Items.Clear();//удаление содержимого выпадающего списка чтоб небыло (список * 2)
-
-            while (dr.Read())
-            {
-                string sName = dr.GetString(0);
-
-                shotPerformedFN.Items.Add(sName);//зйомку виконав
-            }
-
-            cn.Close();
-        }
-
-        private void planDrewFN_DropDownOpened(object sender, System.EventArgs e)//обновление содержимого выпадающего списка при его открытие
-        {
-            cn.Open();
-            string strSQL = $"SELECT * FROM Employee";
-            SqlCommand myCommand = new SqlCommand(strSQL, cn);
-            SqlDataReader dr = myCommand.ExecuteReader();
-
-            planDrewFN.Items.Clear();//удаление содержимого выпадающего списка чтоб небыло (список * 2)
-
-            while (dr.Read())
-            {
-                string sName = dr.GetString(0);
-
-                planDrewFN.Items.Add(sName);// план накреслив
+                (comboBoxName).Items.Add(sName);        
             }
 
             cn.Close();
@@ -153,14 +98,16 @@ namespace WpfApplication1
 
         private void shotPerformedFN_DropDownClosed(object sender, System.EventArgs e)//зависимость TextBox от выбора в ComboBox таблица Employee
         {
+            ComboBox comboBox = sender as ComboBox;
+
             cn.Open();
-            string strSQL = $"SELECT * FROM Employee WHERE Name = '{((ComboBox)sender).Text}'";
+            string strSQL = $"SELECT * FROM Employee WHERE Name = '{comboBox.Text}'";
             SqlCommand myCommand = new SqlCommand(strSQL, cn);
             SqlDataReader dr = myCommand.ExecuteReader();
 
             while (dr.Read())
             {
-                if (((ComboBox)sender).Name == "shotPerformedFN")
+                if (comboBox.Name == "shotPerformedFN")
                 {
                     shotPerformed.Content = dr[1].ToString();
                 }

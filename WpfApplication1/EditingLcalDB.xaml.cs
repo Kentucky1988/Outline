@@ -54,13 +54,10 @@ namespace WpfApplication1
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)//Сохранение изминений БД
         {
-            int x = 0;           
+            int x = 0;// если Employee          
 
             switch ((sender as Button).Name)
-            {
-                case "Employee":
-                    x = 0;
-                    break;
+            {             
                 case "Leshoz":
                     x = 3;
                     break;
@@ -69,9 +66,7 @@ namespace WpfApplication1
                     break;
                 case "Felling":
                     x = 9;
-                    break;
-                default:                   
-                    break;
+                    break;               
             }
 
             connection.Open();
@@ -79,6 +74,7 @@ namespace WpfApplication1
             adapter = (SqlDataAdapter)arrayList[x + 1];
             dataTable = (DataTable)arrayList[x + 2];
             cmbd = new SqlCommandBuilder(adapter);
+
             try
             {
                 adapter.Update(dataTable);
@@ -89,6 +85,8 @@ namespace WpfApplication1
             {
                 MessageBox.Show("Вкажіть П.І.Б. і посаду");
             }
+
+            connection.Close();
         }
     }
 }
