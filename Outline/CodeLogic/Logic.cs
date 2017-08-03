@@ -45,7 +45,7 @@ namespace WpfApplication1
                     grade = (rumb == "x") ? int.Parse(ConvertingRumb(grade)[1]) : grade; //перевод градусов 360 в 90
                     rumb = (rumb == "x") ? ConvertingRumb(сollection[i - 1].Градуси)[0] : rumb;  //перевод градусов в румбы
 
-                    if ("ПнСх" == rumb || "ПдСх" == rumb)
+                    if ("ПнСх" == rumb || "ПдСх" == rumb)// точка Х
                     {
                         arrayPoligon[i].X = arrayPoligon[i - 1].X + Math.Sin((grade + (minutes / 60)) * (Math.PI / 180)) * length;
                     }
@@ -53,7 +53,7 @@ namespace WpfApplication1
                     {
                         arrayPoligon[i].X = arrayPoligon[i - 1].X - Math.Sin((grade + (minutes / 60)) * (Math.PI / 180)) * length;
                     }
-                    if ("ПнСх" == rumb || "ПнЗх" == rumb)
+                    if ("ПнСх" == rumb || "ПнЗх" == rumb) // точка Y
                     {
                         arrayPoligon[i].Y = arrayPoligon[i - 1].Y - Math.Cos((grade + (minutes / 60)) * (Math.PI / 180)) * length;
                     }
