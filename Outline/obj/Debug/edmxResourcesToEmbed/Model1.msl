@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Хранилище EmployeeModelContainer" CdmEntityContainer="EmployeeEntities">
+    <EntitySetMapping Name="Forestry">
+      <EntityTypeMapping TypeName="EmployeeModel.Forestry">
+        <MappingFragment StoreEntitySet="Forestry">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Felling">
+      <EntityTypeMapping TypeName="EmployeeModel.Felling">
+        <MappingFragment StoreEntitySet="Felling">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Leshoz">
+      <EntityTypeMapping TypeName="EmployeeModel.Leshoz">
+        <MappingFragment StoreEntitySet="Leshoz">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

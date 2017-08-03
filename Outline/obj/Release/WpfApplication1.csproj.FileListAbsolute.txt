@@ -1,0 +1,35 @@
+C:\Users\Дима\Desktop\Абрис\WpfApplication1\WpfApplication1\bin\Release\WpfApplication1.exe.config
+C:\Users\Дима\Desktop\Абрис\WpfApplication1\WpfApplication1\bin\Release\WpfApplication1.exe
+C:\Users\Дима\Desktop\Абрис\WpfApplication1\WpfApplication1\bin\Release\WpfApplication1.pdb
+C:\Users\Дима\Desktop\Абрис\WpfApplication1\WpfApplication1\obj\Release\MainWindow.g.cs
+C:\Users\Дима\Desktop\Абрис\WpfApplication1\WpfApplication1\obj\Release\App.g.cs
+C:\Users\Дима\Desktop\Абрис\WpfApplication1\WpfApplication1\obj\Release\WpfApplication1_MarkupCompile.cache
+C:\Users\Дима\Desktop\Абрис\WpfApplication1\WpfApplication1\obj\Release\WpfApplication1_MarkupCompile.lref
+C:\Users\Дима\Desktop\Абрис\WpfApplication1\WpfApplication1\obj\Release\MainWindow.baml
+C:\Users\Дима\Desktop\Абрис\WpfApplication1\WpfApplication1\obj\Release\WpfApplication1.g.resources
+C:\Users\Дима\Desktop\Абрис\WpfApplication1\WpfApplication1\obj\Release\WpfApplication1.Properties.Resources.resources
+C:\Users\Дима\Desktop\Абрис\WpfApplication1\WpfApplication1\obj\Release\WpfApplication1.csproj.GenerateResource.Cache
+C:\Users\Дима\Desktop\Абрис\WpfApplication1\WpfApplication1\obj\Release\WpfApplication1.exe
+C:\Users\Дима\Desktop\Абрис\WpfApplication1\WpfApplication1\obj\Release\WpfApplication1.pdb
+C:\Users\Дима\Desktop\Абрис\WpfApplication1\WpfApplication1\obj\Release\WpfApplication1.csprojResolveAssemblyReference.cache
+C:\Users\Дима\Desktop\Абрис\WpfApplication1\WpfApplication1\obj\Release\Print.baml
+C:\Users\Дима\Desktop\Абрис\WpfApplication1\WpfApplication1\obj\Release\Print.g.cs
+C:\Users\Дима\Desktop\Новая папка\Абрис\WpfApplication1\WpfApplication1\bin\Release\WpfApplication1.exe.config
+C:\Users\Дима\Desktop\Новая папка\Абрис\WpfApplication1\WpfApplication1\obj\Release\WpfApplication1.exe
+C:\Users\Дима\Desktop\Новая папка\Абрис\WpfApplication1\WpfApplication1\obj\Release\WpfApplication1.pdb
+E:\GitHub\Абрис\WpfApplication1\WpfApplication1\bin\Release\WpfApplication1.exe.config
+E:\GitHub\Абрис\WpfApplication1\WpfApplication1\bin\Release\WpfApplication1.exe
+E:\GitHub\Абрис\WpfApplication1\WpfApplication1\bin\Release\WpfApplication1.pdb
+E:\GitHub\Абрис\WpfApplication1\WpfApplication1\obj\Release\WpfApplication1.csprojResolveAssemblyReference.cache
+E:\GitHub\Абрис\WpfApplication1\WpfApplication1\obj\Release\Print.baml
+E:\GitHub\Абрис\WpfApplication1\WpfApplication1\obj\Release\MainWindow.g.cs
+E:\GitHub\Абрис\WpfApplication1\WpfApplication1\obj\Release\Print.g.cs
+E:\GitHub\Абрис\WpfApplication1\WpfApplication1\obj\Release\App.g.cs
+E:\GitHub\Абрис\WpfApplication1\WpfApplication1\obj\Release\WpfApplication1_MarkupCompile.cache
+E:\GitHub\Абрис\WpfApplication1\WpfApplication1\obj\Release\WpfApplication1_MarkupCompile.lref
+E:\GitHub\Абрис\WpfApplication1\WpfApplication1\obj\Release\MainWindow.baml
+E:\GitHub\Абрис\WpfApplication1\WpfApplication1\obj\Release\WpfApplication1.g.resources
+E:\GitHub\Абрис\WpfApplication1\WpfApplication1\obj\Release\WpfApplication1.Properties.Resources.resources
+E:\GitHub\Абрис\WpfApplication1\WpfApplication1\obj\Release\WpfApplication1.csproj.GenerateResource.Cache
+E:\GitHub\Абрис\WpfApplication1\WpfApplication1\obj\Release\WpfApplication1.exe
+E:\GitHub\Абрис\WpfApplication1\WpfApplication1\obj\Release\WpfApplication1.pdb
