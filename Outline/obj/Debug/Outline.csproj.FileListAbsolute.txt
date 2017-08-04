@@ -30,7 +30,6 @@ E:\GitHub\Абрис\Outline\Outline\bin\Debug\WpfApplication1.pdb
 E:\GitHub\Абрис\Outline\Outline\bin\Debug\EntityFramework.dll
 E:\GitHub\Абрис\Outline\Outline\bin\Debug\EntityFramework.xml
 E:\GitHub\Абрис\Outline\Outline\bin\Debug\ru\EntityFramework.resources.dll
-E:\GitHub\Абрис\Outline\Outline\obj\Debug\Outline.csprojResolveAssemblyReference.cache
 E:\GitHub\Абрис\Outline\Outline\obj\Debug\Print.baml
 E:\GitHub\Абрис\Outline\Outline\obj\Debug\EditingLcalDB.g.cs
 E:\GitHub\Абрис\Outline\Outline\obj\Debug\MainWindow.g.cs

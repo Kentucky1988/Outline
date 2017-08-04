@@ -15,23 +15,24 @@ namespace WpfApplication1
         Point[] myPoligon;//масив координат ХУ полигона
         Point[] myBinding;//масив координат ХУ привязки       
 
-        public Point[] CalculationCoordinates(ObservableCollection<Points> сollection, int[] array, int x)//расчет координат
+        public Point[] CalculationCoordinates<T>(ObservableCollection<T> сollection, int[] array, int x) where T : IPoints//расчет координат
         {
             int a = сollection.Count + 1;//длина масива + координаты первой точки
             Point[] arrayPoligon = new Point[a];//создаем масив координат ХУ
             for (int i = 0; i < a; i++)
             {
-                if (i == 0 && x == 0)
+                if (i == 0 && x == 0)//координаты полигона
                 {
                     arrayPoligon[0].X = array[0];  //координаты первой точки Х полигона: ширина окна / 2     
                     arrayPoligon[0].Y = array[1];  //координаты первой точки Y полигона: высота окна / 2           
                 }
-                else if (i == 0 && x == 1)
+                else if (i == 0 && x == 1)//координаты привязки 
                 {
                     if (array[2] > myPoligon.Length - 1)
                     {
                         MessageBox.Show("Перевірте правильность вводу номера точки від якої будете робити прив'язку");
                     }
+                                        
                     arrayPoligon[0].X = myPoligon[array[2] - 1].X; //координаты первой точки Х привязки     
                     arrayPoligon[0].Y = myPoligon[array[2] - 1].Y; //координаты первой точки Y привязки          
                 }
@@ -63,6 +64,12 @@ namespace WpfApplication1
                     }
                 }
             }
+
+            if (myPoligon == null)//для Unit теста
+            {
+                myPoligon = arrayPoligon;
+            }
+
             return arrayPoligon;
         }
 

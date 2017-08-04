@@ -6,12 +6,20 @@ using System.Windows;
 
 namespace WpfApplication1
 {
-    public enum Rumb
+    interface IPoints
+    {
+        Rumb Румб { get; set; }
+        int Градуси {get; set;}
+        double Хвилини {get; set;}
+        double Довжина {get; set;}
+    }
+
+    public enum Rumb 
     {
         ПнСх, ПдСх, ПдЗх, ПнЗх, x
     }
 
-   class Points
+   class Points : IPoints
     {
         private double мinutes; //минты
         private int grade; //градусы
@@ -27,7 +35,7 @@ namespace WpfApplication1
                     grade = 0;
                     MessageBox.Show("Градуси повинні бути в межах 0 - 360");
                 }
-                else if (Румб.ToString() != "x" && value > 90)
+                else if (Румб.ToString() != "x" && value >= 90)
                 {
                     grade = 0;
                     MessageBox.Show("Градуси повинні бути в межах 0 - 90");

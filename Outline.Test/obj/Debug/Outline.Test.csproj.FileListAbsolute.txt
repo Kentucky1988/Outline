@@ -27,7 +27,6 @@ E:\GitHub\Абрис\Outline\Outline.Test\bin\Debug\ru\Microsoft.VisualStudio.Te
 E:\GitHub\Абрис\Outline\Outline.Test\bin\Debug\ru\Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll
 E:\GitHub\Абрис\Outline\Outline.Test\bin\Debug\Employee.mdf
 E:\GitHub\Абрис\Outline\Outline.Test\bin\Debug\Employee_log.ldf
-E:\GitHub\Абрис\Outline\Outline.Test\bin\Debug\Градусы_Румбы.xlsx
 E:\GitHub\Абрис\Outline\Outline.Test\bin\Debug\Outline.Test.dll
 E:\GitHub\Абрис\Outline\Outline.Test\bin\Debug\Outline.Test.pdb
 E:\GitHub\Абрис\Outline\Outline.Test\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.dll
@@ -40,3 +39,4 @@ E:\GitHub\Абрис\Outline\Outline.Test\bin\Debug\Microsoft.VisualStudio.TestP
 E:\GitHub\Абрис\Outline\Outline.Test\obj\Debug\Outline.Test.csprojResolveAssemblyReference.cache
 E:\GitHub\Абрис\Outline\Outline.Test\obj\Debug\Outline.Test.dll
 E:\GitHub\Абрис\Outline\Outline.Test\obj\Debug\Outline.Test.pdb
+E:\GitHub\Абрис\Outline\Outline.Test\bin\Debug\Class1_Test\Градусы_Румбы.xlsx

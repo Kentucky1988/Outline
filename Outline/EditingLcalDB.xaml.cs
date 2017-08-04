@@ -48,7 +48,7 @@ namespace WpfApplication1
 
             catch (Exception)
             {
-                MessageBox.Show("Помилка відкриття БД");
+                MessageBox.Show("Нажаль не вдалось підключитись до файлів Бази Данних. Спробуйте ще раз, або перезапустіть программу");
             }
         }
 
@@ -69,12 +69,20 @@ namespace WpfApplication1
                     break;               
             }
 
-            connection.Open();
-            command = (SqlCommand)arrayList[x];
-            adapter = (SqlDataAdapter)arrayList[x + 1];
-            dataTable = (DataTable)arrayList[x + 2];
-            cmbd = new SqlCommandBuilder(adapter);
-
+            try
+            {
+                connection.Open();
+                command = (SqlCommand)arrayList[x];
+                adapter = (SqlDataAdapter)arrayList[x + 1];
+                dataTable = (DataTable)arrayList[x + 2];
+                cmbd = new SqlCommandBuilder(adapter);
+            }
+            catch (Exception)
+            {
+                connection.Close();
+                MessageBox.Show("Нажаль не вдалось підключитись до файлів Бази Данних. Спробуйте ще раз, або перезапустіть программу");
+            }
+            
             try
             {
                 adapter.Update(dataTable);

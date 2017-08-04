@@ -17,6 +17,8 @@ namespace WpfApplication1.Test
             point.Градуси = x;
             int actual = point.Градуси;
 
+            System.Diagnostics.Trace.WriteLine(actual.ToString());
+
             Assert.AreEqual(expected, actual);
         }
 

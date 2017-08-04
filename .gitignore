@@ -1,4 +1,5 @@
-/WpfApplication1/obj
-/WpfApplication1/bin
 /TestResults
 /.vs
+/packages
+/Outline/bin
+/Outline/obj

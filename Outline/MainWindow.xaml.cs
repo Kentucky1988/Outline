@@ -78,8 +78,17 @@ namespace WpfApplication1
                     table = "Employee";
                     break;
             }
+
+            try
+            {
+                cn.Open();
+            }
+            catch (System.Exception)
+            {
+                cn.Close();
+                MessageBox.Show("Нажаль не вдалось підключитись до файлів Бази Данних. Спробуйте ще раз, або перезапустіть программу");
+            }
            
-            cn.Open();
             string strSQL = $"SELECT * FROM {table}";
             SqlCommand myCommand = new SqlCommand(strSQL, cn);
             SqlDataReader dr = myCommand.ExecuteReader();
@@ -100,7 +109,15 @@ namespace WpfApplication1
         {
             ComboBox comboBox = sender as ComboBox;
 
-            cn.Open();
+            try
+            {
+                cn.Open();
+            }
+            catch (System.Exception)
+            {
+                cn.Close();
+                MessageBox.Show("Нажаль не вдалось підключитись до файлів Бази Данних. Спробуйте ще раз, або перезапустіть программу");
+            }
             string strSQL = $"SELECT * FROM Employee WHERE Name = '{comboBox.Text}'";
             SqlCommand myCommand = new SqlCommand(strSQL, cn);
             SqlDataReader dr = myCommand.ExecuteReader();

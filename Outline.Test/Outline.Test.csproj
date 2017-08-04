@@ -52,13 +52,14 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Class1_Test\Help_Class1Test.cs" />
     <Compile Include="PointsTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Class1Test.cs" />
+    <Compile Include="Class1_Test\Class1Test.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="Градусы_Румбы.xlsx">
+    <None Include="Class1_Test\Градусы_Румбы.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
