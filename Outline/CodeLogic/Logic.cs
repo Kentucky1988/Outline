@@ -13,8 +13,8 @@ namespace WpfApplication1
     class Class1 : Window
     {
         Point[] myPoligon;//масив координат ХУ полигона
-        Point[] myBinding;//масив координат ХУ привязки       
-
+        Point[] myBinding;//масив координат ХУ привязки  
+               
         public Point[] CalculationCoordinates<T>(ObservableCollection<T> сollection, int[] array, int x) where T : IPoints//расчет координат
         {
             int a = сollection.Count + 1;//длина масива + координаты первой точки

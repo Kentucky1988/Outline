@@ -45,3 +45,4 @@ E:\GitHub\Абрис\Outline\Outline\obj\Debug\WpfApplication1.Properties.Resour
 E:\GitHub\Абрис\Outline\Outline\obj\Debug\Outline.csproj.GenerateResource.Cache
 E:\GitHub\Абрис\Outline\Outline\obj\Debug\WpfApplication1.exe
 E:\GitHub\Абрис\Outline\Outline\obj\Debug\WpfApplication1.pdb
+E:\GitHub\Абрис\Outline\Outline\obj\Debug\Outline.csprojResolveAssemblyReference.cache

@@ -35,7 +35,7 @@ namespace WpfApplication1
                     grade = 0;
                     MessageBox.Show("Градуси повинні бути в межах 0 - 360");
                 }
-                else if (Румб.ToString() != "x" && value >= 90)
+                else if (Румб.ToString() != "x" && value > 90)
                 {
                     grade = 0;
                     MessageBox.Show("Градуси повинні бути в межах 0 - 90");
