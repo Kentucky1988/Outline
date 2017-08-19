@@ -48,7 +48,7 @@ namespace WpfApplication1
 
             catch (Exception)
             {
-                MessageBox.Show("Помилка відкриття БД");
+                MessageBox.Show("Помилка відкриття БД");                
             }
         }
 

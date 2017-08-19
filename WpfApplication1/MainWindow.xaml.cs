@@ -1,6 +1,9 @@
-﻿using System.Data.SqlClient;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Data.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using WpfApplication1.CodeLogic;
 
 namespace WpfApplication1
 {
@@ -11,9 +14,9 @@ namespace WpfApplication1
     {
         Class1 class1;
         MainWindowLogic mainWindowLogic;
-        Points coordinatesPolygon; //съмка полигона 
-        Points coordinatesBinding; //съмка привязки
-        SqlConnection cn;//подключение к БД
+        Points coordinatesPolygon; //сьемка полигона 
+        Points coordinatesBinding; //сьемка привязки
+        InteractionLogicLocalDB logicLocalDB;
 
         public MainWindow()
         {
@@ -24,7 +27,7 @@ namespace WpfApplication1
             coordinatesBinding = new Points();
             dataGrid.ItemsSource = coordinatesPolygon.Collection();
             dataGridBindg.ItemsSource = coordinatesBinding.Collection();
-            cn = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=E:\GitHub\Абрис\Outline\WpfApplication1\Employee.mdf;Integrated Security=True");//подключение к БД
+            logicLocalDB = new InteractionLogicLocalDB();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -55,137 +58,55 @@ namespace WpfApplication1
             mainWindowLogic.Clear(coordinatesPolygon, coordinatesBinding);
         }
 
-        private void leshoz_DropDownOpened(object sender, System.EventArgs e)//обновление содержимого выпадающего списка при его открытие
+        private void leshoz_DropDownOpened(object sender, System.EventArgs e)//обновление содержимого выпадающего списка leshoz при его открытие
         {
-            cn.Open();
-            string strSQL = $"SELECT * FROM Leshoz";
-            SqlCommand myCommand = new SqlCommand(strSQL, cn);
-            SqlDataReader dr = myCommand.ExecuteReader();
-
-            leshoz.Items.Clear();//удаление содержимого выпадающего списка чтоб небыло (список * 2)
-
-            while (dr.Read())
-            {
-                string sName = dr.GetString(0);
-
-                leshoz.Items.Add(sName);// таблица Leshoz               
-            }
-
-            cn.Close();
+            logicLocalDB.ComboBox_Opened(leshoz);
         }
 
-        private void forestry_DropDownOpened(object sender, System.EventArgs e)//обновление содержимого выпадающего списка при его открытие
+        private void felling_DropDownOpened(object sender, System.EventArgs e)//обновление содержимого выпадающего списка felling при его открытие
         {
-            cn.Open();
-            string strSQL = null;
-
-            if (leshoz.Text != string.Empty)
-            {
-                strSQL = $"SELECT Forestry FROM Forestry WHERE Leshoz = N'{leshoz.Text}'";
-            }
-            else
-            {
-                strSQL = $"SELECT * FROM Forestry";
-            }   
-
-            SqlCommand myCommand = new SqlCommand(strSQL, cn);
-            SqlDataReader dr = myCommand.ExecuteReader();
-
-            forestry.Items.Clear();//удаление содержимого выпадающего списка чтоб небыло (список * 2)
-
-            while (dr.Read())
-            {
-                string sName = dr.GetString(0);
-
-                forestry.Items.Add(sName);// таблица Forestry(лесничества)              
-            }
-
-            cn.Close();
+            logicLocalDB.ComboBox_Opened(felling);
         }
 
-        private void felling_DropDownOpened(object sender, System.EventArgs e)//обновление содержимого выпадающего списка при его открытие
+        private void shotPerformedFN_DropDownOpened(object sender, System.EventArgs e)//обновление содержимого выпадающего списка shotPerformedFN при его открытие
         {
-            cn.Open();
-            string strSQL = $"SELECT * FROM Felling";
-            SqlCommand myCommand = new SqlCommand(strSQL, cn);
-            SqlDataReader dr = myCommand.ExecuteReader();
-
-            felling.Items.Clear();//удаление содержимого выпадающего списка чтоб небыло (список * 2)
-
-            while (dr.Read())
-            {
-                string sName = dr.GetString(0);
-
-                felling.Items.Add(sName);//рубки               
-            }
-
-            cn.Close();
+            logicLocalDB.ComboBox_Opened(shotPerformedFN);
         }
 
-        private void shotPerformedFN_DropDownOpened(object sender, System.EventArgs e)//обновление содержимого выпадающего списка при его открытие
+        private void planDrewFN_DropDownOpened(object sender, System.EventArgs e)//обновление содержимого выпадающего списка planDrewFN при его открытие
         {
-            cn.Open();
-            string strSQL = $"SELECT * FROM Employe";
-            SqlCommand myCommand = new SqlCommand(strSQL, cn);
-            SqlDataReader dr = myCommand.ExecuteReader();
-
-            shotPerformedFN.Items.Clear();//удаление содержимого выпадающего списка чтоб небыло (список * 2)
-
-            while (dr.Read())
-            {
-                string sName = dr.GetString(0);
-
-                shotPerformedFN.Items.Add(sName);//зйомку виконав
-            }
-
-            cn.Close();
+            logicLocalDB.ComboBox_Opened(planDrewFN);
         }
 
-        private void planDrewFN_DropDownOpened(object sender, System.EventArgs e)//обновление содержимого выпадающего списка при его открытие
-        {
-            cn.Open();
-            string strSQL = $"SELECT * FROM Employe";
-            SqlCommand myCommand = new SqlCommand(strSQL, cn);
-            SqlDataReader dr = myCommand.ExecuteReader();
-
-            planDrewFN.Items.Clear();//удаление содержимого выпадающего списка чтоб небыло (список * 2)
-
-            while (dr.Read())
-            {
-                string sName = dr.GetString(0);
-
-                planDrewFN.Items.Add(sName);// план накреслив
-            }
-
-            cn.Close();
+        private void forestry_DropDownOpened(object sender, System.EventArgs e)//обновление содержимого выпадающего forestry списка при его открытие
+        {                                                                      //в зависимости от значения в ComboBox leshoz
+            logicLocalDB.ComboBox_Opened(leshoz, forestry);
         }
 
-        private void shotPerformedFN_DropDownClosed(object sender, System.EventArgs e)//зависимость TextBox от выбора в ComboBox таблица Employee
+        private void shotPerformedFN_DropDownClosed(object sender, System.EventArgs e)//зависимость Label от выбора в ComboBox таблица Employee
         {
-            cn.Open();
-            string strSQL = $"SELECT * FROM Employe WHERE Employe = '{((ComboBox)sender).Text}'";
-            SqlCommand myCommand = new SqlCommand(strSQL, cn);
-            SqlDataReader dr = myCommand.ExecuteReader();
-
-            while (dr.Read())
-            {
-                if (((ComboBox)sender).Name == "shotPerformedFN")
-                {
-                    shotPerformed.Content = dr[1].ToString();
-                }
-                else
-                {                   
-                    planDrew.Content = dr[1].ToString();                    
-                }
-            }
-
-            cn.Close();
+            logicLocalDB.ComboBox_Opened(sender as ComboBox, shotPerformed, planDrew);
         }
 
         private void editingLcalDB_Click(object sender, RoutedEventArgs e)//открытие окна редактирования БД
         {
             EditingLcalDB showEditingLcalDB = new EditingLcalDB();
             showEditingLcalDB.Show();
+        }
+
+        private void savePlanLcalDB_Click(object sender, RoutedEventArgs e) //добавление сйомки в БД
+        {
+            Journal table = new Journal();
+
+            ObservableCollection<Points> сollectin = coordinatesPolygon.Collection();
+
+            MessageBox.Show(сollectin[0].Градуси.ToString() + " / " + сollectin.Count);
+
+
+            //DataContext dc = new DataContext(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=E:\GitHub\Абрис\Outline\WpfApplication1\Employee.mdf;Integrated Security=True");
+            //dc.GetTable<Journal>().InsertOnSubmit(table);
+
+            //MessageBox.Show("Зйомка успішно збережена в БД");
         }
     }
 }

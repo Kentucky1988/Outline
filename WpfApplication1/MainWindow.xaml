@@ -22,6 +22,7 @@
                 </MenuItem>
                 <MenuItem Header="Данні">
                     <MenuItem Header="Редагування БД" Click="editingLcalDB_Click"/>
+                    <MenuItem Header="Зберегти зйомку в БД" Click="savePlanLcalDB_Click"/>
                 </MenuItem>
                 <MenuItem Header="Довідка">
                     <MenuItem Header="Інструкція"/>
