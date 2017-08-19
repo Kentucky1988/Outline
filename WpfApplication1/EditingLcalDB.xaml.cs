@@ -24,7 +24,7 @@ namespace WpfApplication1
         {
             InitializeComponent();
             connection = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=E:\GitHub\Абрис\Outline\WpfApplication1\Employee.mdf;Integrated Security=True");
-            EmployeeGrid(employeeDataGrid, "Employee");
+            EmployeeGrid(employeeDataGrid, "Employe");
             EmployeeGrid(leshozDataGrid, "Leshoz");
             EmployeeGrid(forestryDataGrid, "Forestry");
             EmployeeGrid(fellingDataGrid, "Felling");
@@ -58,7 +58,7 @@ namespace WpfApplication1
 
             switch ((sender as Button).Name)
             {
-                case "Employee":
+                case "Employe":
                     x = 0;
                     break;
                 case "Leshoz":
@@ -90,6 +90,7 @@ namespace WpfApplication1
                 MessageBox.Show("Вкажіть П.І.Б. і посаду");
             }
         }
+
     }
 }
 

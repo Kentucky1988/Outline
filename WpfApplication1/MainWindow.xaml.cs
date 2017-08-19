@@ -25,7 +25,6 @@ namespace WpfApplication1
             dataGrid.ItemsSource = coordinatesPolygon.Collection();
             dataGridBindg.ItemsSource = coordinatesBinding.Collection();
             cn = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=E:\GitHub\Абрис\Outline\WpfApplication1\Employee.mdf;Integrated Security=True");//подключение к БД
-
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -78,7 +77,17 @@ namespace WpfApplication1
         private void forestry_DropDownOpened(object sender, System.EventArgs e)//обновление содержимого выпадающего списка при его открытие
         {
             cn.Open();
-            string strSQL = $"SELECT * FROM Forestry";
+            string strSQL = null;
+
+            if (leshoz.Text != string.Empty)
+            {
+                strSQL = $"SELECT Forestry FROM Forestry WHERE Leshoz = N'{leshoz.Text}'";
+            }
+            else
+            {
+                strSQL = $"SELECT * FROM Forestry";
+            }   
+
             SqlCommand myCommand = new SqlCommand(strSQL, cn);
             SqlDataReader dr = myCommand.ExecuteReader();
 
@@ -116,7 +125,7 @@ namespace WpfApplication1
         private void shotPerformedFN_DropDownOpened(object sender, System.EventArgs e)//обновление содержимого выпадающего списка при его открытие
         {
             cn.Open();
-            string strSQL = $"SELECT * FROM Employee";
+            string strSQL = $"SELECT * FROM Employe";
             SqlCommand myCommand = new SqlCommand(strSQL, cn);
             SqlDataReader dr = myCommand.ExecuteReader();
 
@@ -135,7 +144,7 @@ namespace WpfApplication1
         private void planDrewFN_DropDownOpened(object sender, System.EventArgs e)//обновление содержимого выпадающего списка при его открытие
         {
             cn.Open();
-            string strSQL = $"SELECT * FROM Employee";
+            string strSQL = $"SELECT * FROM Employe";
             SqlCommand myCommand = new SqlCommand(strSQL, cn);
             SqlDataReader dr = myCommand.ExecuteReader();
 
@@ -154,7 +163,7 @@ namespace WpfApplication1
         private void shotPerformedFN_DropDownClosed(object sender, System.EventArgs e)//зависимость TextBox от выбора в ComboBox таблица Employee
         {
             cn.Open();
-            string strSQL = $"SELECT * FROM Employee WHERE Name = '{((ComboBox)sender).Text}'";
+            string strSQL = $"SELECT * FROM Employe WHERE Employe = '{((ComboBox)sender).Text}'";
             SqlCommand myCommand = new SqlCommand(strSQL, cn);
             SqlDataReader dr = myCommand.ExecuteReader();
 
@@ -165,8 +174,8 @@ namespace WpfApplication1
                     shotPerformed.Content = dr[1].ToString();
                 }
                 else
-                {
-                    planDrew.Content = dr[1].ToString();
+                {                   
+                    planDrew.Content = dr[1].ToString();                    
                 }
             }
 
