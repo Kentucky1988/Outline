@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Data.Linq;
+﻿using System.Collections;
 using System.Windows;
 using System.Windows.Controls;
 using WpfApplication1.CodeLogic;
@@ -16,7 +14,8 @@ namespace WpfApplication1
         MainWindowLogic mainWindowLogic;
         Points coordinatesPolygon; //сьемка полигона 
         Points coordinatesBinding; //сьемка привязки
-        InteractionLogicLocalDB logicLocalDB;
+        InteractionLogicLocalDB logicLocalDB;//отображать значения в ComboBox из БД
+        JobFromLocalDB jobFromLocalDB;//клас сохранения, извличения, удаления сьемок в БД
 
         public MainWindow()
         {
@@ -27,7 +26,8 @@ namespace WpfApplication1
             coordinatesBinding = new Points();
             dataGrid.ItemsSource = coordinatesPolygon.Collection();
             dataGridBindg.ItemsSource = coordinatesBinding.Collection();
-            logicLocalDB = new InteractionLogicLocalDB();
+            logicLocalDB = new InteractionLogicLocalDB();//отображать значения в ComboBox из БД
+            jobFromLocalDB = new JobFromLocalDB();//клас сохранения, извличения, удаления сьемок в БД
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -94,19 +94,26 @@ namespace WpfApplication1
             showEditingLcalDB.Show();
         }
 
-        private void savePlanLcalDB_Click(object sender, RoutedEventArgs e) //добавление сйомки в БД
+        private void savePlanLcalDB_Click(object sender, RoutedEventArgs e) //добавление сьемки в БД
         {
-            Journal table = new Journal();
+            ArrayList arrayList = new ArrayList();
 
-            ObservableCollection<Points> сollectin = coordinatesPolygon.Collection();
+            arrayList.Add(coordinatesPolygon);//0
+            arrayList.Add(leshoz);//1
+            arrayList.Add(forestry);//2
+            arrayList.Add(felling);//3
+            arrayList.Add(kvartal);//4
+            arrayList.Add(vudel);//5
+            arrayList.Add(year);//6
+            arrayList.Add(pointNumber);//7
+            arrayList.Add(shotPerformedFN);//8
+            arrayList.Add(planDrewFN);//9
 
-            MessageBox.Show(сollectin[0].Градуси.ToString() + " / " + сollectin.Count);
-
-
-            //DataContext dc = new DataContext(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=E:\GitHub\Абрис\Outline\WpfApplication1\Employee.mdf;Integrated Security=True");
-            //dc.GetTable<Journal>().InsertOnSubmit(table);
-
-            //MessageBox.Show("Зйомка успішно збережена в БД");
+            jobFromLocalDB.SaveLocalDB(arrayList);
         }
+
+        //!!!!!!!!!!!!!!!добавить точки привязки в БД!!!!!!!!!!!!!!!!!!!!!!!
     }
 }
+
+

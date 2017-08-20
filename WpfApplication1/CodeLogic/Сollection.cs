@@ -10,7 +10,7 @@ namespace WpfApplication1
 
     class Points
     {
-        private double мinutes; //минты
+        private int мinutes; //минты
         private int grade; //градусы
 
         public Rumb Румб { get; set; }
@@ -33,7 +33,7 @@ namespace WpfApplication1
                 { grade = value; };
             }
         }
-        public double Хвилини
+        public int Хвилини
         {
             get { return мinutes; }
             set
@@ -61,7 +61,7 @@ namespace WpfApplication1
         public string Номер { get; set; }
         public string Румб { get; set; }
         public int Градус { get; set; }
-        public double Хвилин { get; set; }
+        public int Хвилин { get; set; }
         public double Довжина { get; set; }
     }
 }

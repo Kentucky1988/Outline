@@ -33,9 +33,6 @@ namespace WpfApplication1
     partial void InsertEmploye(Employe instance);
     partial void UpdateEmploye(Employe instance);
     partial void DeleteEmploye(Employe instance);
-    partial void InsertPlotList(PlotList instance);
-    partial void UpdatePlotList(PlotList instance);
-    partial void DeletePlotList(PlotList instance);
     partial void InsertFelling(Felling instance);
     partial void UpdateFelling(Felling instance);
     partial void DeleteFelling(Felling instance);
@@ -48,6 +45,9 @@ namespace WpfApplication1
     partial void InsertLeshoz(Leshoz instance);
     partial void UpdateLeshoz(Leshoz instance);
     partial void DeleteLeshoz(Leshoz instance);
+    partial void InsertPlotList(PlotList instance);
+    partial void UpdatePlotList(PlotList instance);
+    partial void DeletePlotList(PlotList instance);
     #endregion
 		
 		public DataClassesEmployeeDataContext() : 
@@ -88,14 +88,6 @@ namespace WpfApplication1
 			}
 		}
 		
-		public System.Data.Linq.Table<PlotList> PlotList
-		{
-			get
-			{
-				return this.GetTable<PlotList>();
-			}
-		}
-		
 		public System.Data.Linq.Table<Felling> Felling
 		{
 			get
@@ -125,6 +117,14 @@ namespace WpfApplication1
 			get
 			{
 				return this.GetTable<Leshoz>();
+			}
+		}
+		
+		public System.Data.Linq.Table<PlotList> PlotList
+		{
+			get
+			{
+				return this.GetTable<PlotList>();
 			}
 		}
 	}
@@ -271,6 +271,523 @@ namespace WpfApplication1
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Felling")]
+	public partial class Felling : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _Felling1;
+		
+		private EntitySet<PlotList> _PlotList;
+		
+    #region Определения метода расширяемости
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnFelling1Changing(string value);
+    partial void OnFelling1Changed();
+    #endregion
+		
+		public Felling()
+		{
+			this._PlotList = new EntitySet<PlotList>(new Action<PlotList>(this.attach_PlotList), new Action<PlotList>(this.detach_PlotList));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="Felling", Storage="_Felling1", DbType="NVarChar(30) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string Felling1
+		{
+			get
+			{
+				return this._Felling1;
+			}
+			set
+			{
+				if ((this._Felling1 != value))
+				{
+					this.OnFelling1Changing(value);
+					this.SendPropertyChanging();
+					this._Felling1 = value;
+					this.SendPropertyChanged("Felling1");
+					this.OnFelling1Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Felling_PlotList", Storage="_PlotList", ThisKey="Felling1", OtherKey="Felling")]
+		public EntitySet<PlotList> PlotList
+		{
+			get
+			{
+				return this._PlotList;
+			}
+			set
+			{
+				this._PlotList.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_PlotList(PlotList entity)
+		{
+			this.SendPropertyChanging();
+			entity.Felling1 = this;
+		}
+		
+		private void detach_PlotList(PlotList entity)
+		{
+			this.SendPropertyChanging();
+			entity.Felling1 = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Forestry")]
+	public partial class Forestry : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _Forestry1;
+		
+		private string _Leshoz;
+		
+		private EntitySet<PlotList> _PlotList;
+		
+    #region Определения метода расширяемости
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnForestry1Changing(string value);
+    partial void OnForestry1Changed();
+    partial void OnLeshozChanging(string value);
+    partial void OnLeshozChanged();
+    #endregion
+		
+		public Forestry()
+		{
+			this._PlotList = new EntitySet<PlotList>(new Action<PlotList>(this.attach_PlotList), new Action<PlotList>(this.detach_PlotList));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="Forestry", Storage="_Forestry1", DbType="NVarChar(30) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string Forestry1
+		{
+			get
+			{
+				return this._Forestry1;
+			}
+			set
+			{
+				if ((this._Forestry1 != value))
+				{
+					this.OnForestry1Changing(value);
+					this.SendPropertyChanging();
+					this._Forestry1 = value;
+					this.SendPropertyChanged("Forestry1");
+					this.OnForestry1Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Leshoz", DbType="NVarChar(30) NOT NULL", CanBeNull=false)]
+		public string Leshoz
+		{
+			get
+			{
+				return this._Leshoz;
+			}
+			set
+			{
+				if ((this._Leshoz != value))
+				{
+					this.OnLeshozChanging(value);
+					this.SendPropertyChanging();
+					this._Leshoz = value;
+					this.SendPropertyChanged("Leshoz");
+					this.OnLeshozChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Forestry_PlotList", Storage="_PlotList", ThisKey="Forestry1", OtherKey="Forestry")]
+		public EntitySet<PlotList> PlotList
+		{
+			get
+			{
+				return this._PlotList;
+			}
+			set
+			{
+				this._PlotList.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_PlotList(PlotList entity)
+		{
+			this.SendPropertyChanging();
+			entity.Forestry1 = this;
+		}
+		
+		private void detach_PlotList(PlotList entity)
+		{
+			this.SendPropertyChanging();
+			entity.Forestry1 = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Journal")]
+	public partial class Journal : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id;
+		
+		private int _Id_PlotList;
+		
+		private string _Rumb;
+		
+		private int _Grade;
+		
+		private int _Minutes;
+		
+		private decimal _Length;
+		
+		private EntityRef<PlotList> _PlotList;
+		
+    #region Определения метода расширяемости
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnId_PlotListChanging(int value);
+    partial void OnId_PlotListChanged();
+    partial void OnRumbChanging(string value);
+    partial void OnRumbChanged();
+    partial void OnGradeChanging(int value);
+    partial void OnGradeChanged();
+    partial void OnMinutesChanging(int value);
+    partial void OnMinutesChanged();
+    partial void OnLengthChanging(decimal value);
+    partial void OnLengthChanged();
+    #endregion
+		
+		public Journal()
+		{
+			this._PlotList = default(EntityRef<PlotList>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_PlotList", DbType="Int NOT NULL")]
+		public int Id_PlotList
+		{
+			get
+			{
+				return this._Id_PlotList;
+			}
+			set
+			{
+				if ((this._Id_PlotList != value))
+				{
+					if (this._PlotList.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnId_PlotListChanging(value);
+					this.SendPropertyChanging();
+					this._Id_PlotList = value;
+					this.SendPropertyChanged("Id_PlotList");
+					this.OnId_PlotListChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Rumb", DbType="NVarChar(4) NOT NULL", CanBeNull=false)]
+		public string Rumb
+		{
+			get
+			{
+				return this._Rumb;
+			}
+			set
+			{
+				if ((this._Rumb != value))
+				{
+					this.OnRumbChanging(value);
+					this.SendPropertyChanging();
+					this._Rumb = value;
+					this.SendPropertyChanged("Rumb");
+					this.OnRumbChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Grade", DbType="Int NOT NULL")]
+		public int Grade
+		{
+			get
+			{
+				return this._Grade;
+			}
+			set
+			{
+				if ((this._Grade != value))
+				{
+					this.OnGradeChanging(value);
+					this.SendPropertyChanging();
+					this._Grade = value;
+					this.SendPropertyChanged("Grade");
+					this.OnGradeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Minutes", DbType="Int NOT NULL")]
+		public int Minutes
+		{
+			get
+			{
+				return this._Minutes;
+			}
+			set
+			{
+				if ((this._Minutes != value))
+				{
+					this.OnMinutesChanging(value);
+					this.SendPropertyChanging();
+					this._Minutes = value;
+					this.SendPropertyChanged("Minutes");
+					this.OnMinutesChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Length", DbType="Decimal(5,2) NOT NULL")]
+		public decimal Length
+		{
+			get
+			{
+				return this._Length;
+			}
+			set
+			{
+				if ((this._Length != value))
+				{
+					this.OnLengthChanging(value);
+					this.SendPropertyChanging();
+					this._Length = value;
+					this.SendPropertyChanged("Length");
+					this.OnLengthChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="PlotList_Journal", Storage="_PlotList", ThisKey="Id_PlotList", OtherKey="Id", IsForeignKey=true)]
+		public PlotList PlotList
+		{
+			get
+			{
+				return this._PlotList.Entity;
+			}
+			set
+			{
+				PlotList previousValue = this._PlotList.Entity;
+				if (((previousValue != value) 
+							|| (this._PlotList.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._PlotList.Entity = null;
+						previousValue.Journal.Remove(this);
+					}
+					this._PlotList.Entity = value;
+					if ((value != null))
+					{
+						value.Journal.Add(this);
+						this._Id_PlotList = value.Id;
+					}
+					else
+					{
+						this._Id_PlotList = default(int);
+					}
+					this.SendPropertyChanged("PlotList");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Leshoz")]
+	public partial class Leshoz : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _Leshoz1;
+		
+		private EntitySet<PlotList> _PlotList;
+		
+    #region Определения метода расширяемости
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnLeshoz1Changing(string value);
+    partial void OnLeshoz1Changed();
+    #endregion
+		
+		public Leshoz()
+		{
+			this._PlotList = new EntitySet<PlotList>(new Action<PlotList>(this.attach_PlotList), new Action<PlotList>(this.detach_PlotList));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="Leshoz", Storage="_Leshoz1", DbType="NVarChar(30) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string Leshoz1
+		{
+			get
+			{
+				return this._Leshoz1;
+			}
+			set
+			{
+				if ((this._Leshoz1 != value))
+				{
+					this.OnLeshoz1Changing(value);
+					this.SendPropertyChanging();
+					this._Leshoz1 = value;
+					this.SendPropertyChanged("Leshoz1");
+					this.OnLeshoz1Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Leshoz_PlotList", Storage="_PlotList", ThisKey="Leshoz1", OtherKey="Leshoz")]
+		public EntitySet<PlotList> PlotList
+		{
+			get
+			{
+				return this._PlotList;
+			}
+			set
+			{
+				this._PlotList.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_PlotList(PlotList entity)
+		{
+			this.SendPropertyChanging();
+			entity.Leshoz1 = this;
+		}
+		
+		private void detach_PlotList(PlotList entity)
+		{
+			this.SendPropertyChanging();
+			entity.Leshoz1 = null;
+		}
+	}
+	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.PlotList")]
 	public partial class PlotList : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -287,11 +804,15 @@ namespace WpfApplication1
 		
 		private int _Kvartal;
 		
-		private float _Vudel;
+		private decimal _Vudel;
 		
 		private string _ShotPerformed;
 		
 		private string _PlanDrew;
+		
+		private int _PointNumber;
+		
+		private int _Year;
 		
 		private EntitySet<Journal> _Journal;
 		
@@ -319,12 +840,16 @@ namespace WpfApplication1
     partial void OnFellingChanged();
     partial void OnKvartalChanging(int value);
     partial void OnKvartalChanged();
-    partial void OnVudelChanging(float value);
+    partial void OnVudelChanging(decimal value);
     partial void OnVudelChanged();
     partial void OnShotPerformedChanging(string value);
     partial void OnShotPerformedChanged();
     partial void OnPlanDrewChanging(string value);
     partial void OnPlanDrewChanged();
+    partial void OnPointNumberChanging(int value);
+    partial void OnPointNumberChanged();
+    partial void OnYearChanging(int value);
+    partial void OnYearChanged();
     #endregion
 		
 		public PlotList()
@@ -450,8 +975,8 @@ namespace WpfApplication1
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Vudel", DbType="Real NOT NULL")]
-		public float Vudel
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Vudel", DbType="Decimal(5,2) NOT NULL")]
+		public decimal Vudel
 		{
 			get
 			{
@@ -514,6 +1039,46 @@ namespace WpfApplication1
 					this._PlanDrew = value;
 					this.SendPropertyChanged("PlanDrew");
 					this.OnPlanDrewChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PointNumber", DbType="Int NOT NULL")]
+		public int PointNumber
+		{
+			get
+			{
+				return this._PointNumber;
+			}
+			set
+			{
+				if ((this._PointNumber != value))
+				{
+					this.OnPointNumberChanging(value);
+					this.SendPropertyChanging();
+					this._PointNumber = value;
+					this.SendPropertyChanged("PointNumber");
+					this.OnPointNumberChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Year", DbType="Int NOT NULL")]
+		public int Year
+		{
+			get
+			{
+				return this._Year;
+			}
+			set
+			{
+				if ((this._Year != value))
+				{
+					this.OnYearChanging(value);
+					this.SendPropertyChanging();
+					this._Year = value;
+					this.SendPropertyChanged("Year");
+					this.OnYearChanged();
 				}
 			}
 		}
@@ -731,523 +1296,6 @@ namespace WpfApplication1
 		{
 			this.SendPropertyChanging();
 			entity.PlotList = null;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Felling")]
-	public partial class Felling : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private string _Felling1;
-		
-		private EntitySet<PlotList> _PlotList;
-		
-    #region Определения метода расширяемости
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnFelling1Changing(string value);
-    partial void OnFelling1Changed();
-    #endregion
-		
-		public Felling()
-		{
-			this._PlotList = new EntitySet<PlotList>(new Action<PlotList>(this.attach_PlotList), new Action<PlotList>(this.detach_PlotList));
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="Felling", Storage="_Felling1", DbType="NVarChar(30) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
-		public string Felling1
-		{
-			get
-			{
-				return this._Felling1;
-			}
-			set
-			{
-				if ((this._Felling1 != value))
-				{
-					this.OnFelling1Changing(value);
-					this.SendPropertyChanging();
-					this._Felling1 = value;
-					this.SendPropertyChanged("Felling1");
-					this.OnFelling1Changed();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Felling_PlotList", Storage="_PlotList", ThisKey="Felling1", OtherKey="Felling")]
-		public EntitySet<PlotList> PlotList
-		{
-			get
-			{
-				return this._PlotList;
-			}
-			set
-			{
-				this._PlotList.Assign(value);
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_PlotList(PlotList entity)
-		{
-			this.SendPropertyChanging();
-			entity.Felling1 = this;
-		}
-		
-		private void detach_PlotList(PlotList entity)
-		{
-			this.SendPropertyChanging();
-			entity.Felling1 = null;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Forestry")]
-	public partial class Forestry : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private string _Forestry1;
-		
-		private string _Leshoz;
-		
-		private EntitySet<PlotList> _PlotList;
-		
-    #region Определения метода расширяемости
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnForestry1Changing(string value);
-    partial void OnForestry1Changed();
-    partial void OnLeshozChanging(string value);
-    partial void OnLeshozChanged();
-    #endregion
-		
-		public Forestry()
-		{
-			this._PlotList = new EntitySet<PlotList>(new Action<PlotList>(this.attach_PlotList), new Action<PlotList>(this.detach_PlotList));
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="Forestry", Storage="_Forestry1", DbType="NVarChar(30) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
-		public string Forestry1
-		{
-			get
-			{
-				return this._Forestry1;
-			}
-			set
-			{
-				if ((this._Forestry1 != value))
-				{
-					this.OnForestry1Changing(value);
-					this.SendPropertyChanging();
-					this._Forestry1 = value;
-					this.SendPropertyChanged("Forestry1");
-					this.OnForestry1Changed();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Leshoz", DbType="NVarChar(30) NOT NULL", CanBeNull=false)]
-		public string Leshoz
-		{
-			get
-			{
-				return this._Leshoz;
-			}
-			set
-			{
-				if ((this._Leshoz != value))
-				{
-					this.OnLeshozChanging(value);
-					this.SendPropertyChanging();
-					this._Leshoz = value;
-					this.SendPropertyChanged("Leshoz");
-					this.OnLeshozChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Forestry_PlotList", Storage="_PlotList", ThisKey="Forestry1", OtherKey="Forestry")]
-		public EntitySet<PlotList> PlotList
-		{
-			get
-			{
-				return this._PlotList;
-			}
-			set
-			{
-				this._PlotList.Assign(value);
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_PlotList(PlotList entity)
-		{
-			this.SendPropertyChanging();
-			entity.Forestry1 = this;
-		}
-		
-		private void detach_PlotList(PlotList entity)
-		{
-			this.SendPropertyChanging();
-			entity.Forestry1 = null;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Journal")]
-	public partial class Journal : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _Id;
-		
-		private System.Nullable<int> _Id_PlotList;
-		
-		private string _Rumb;
-		
-		private int _Grade;
-		
-		private int _Minutes;
-		
-		private float _Length;
-		
-		private EntityRef<PlotList> _PlotList;
-		
-    #region Определения метода расширяемости
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnId_PlotListChanging(System.Nullable<int> value);
-    partial void OnId_PlotListChanged();
-    partial void OnRumbChanging(string value);
-    partial void OnRumbChanged();
-    partial void OnGradeChanging(int value);
-    partial void OnGradeChanged();
-    partial void OnMinutesChanging(int value);
-    partial void OnMinutesChanged();
-    partial void OnLengthChanging(float value);
-    partial void OnLengthChanged();
-    #endregion
-		
-		public Journal()
-		{
-			this._PlotList = default(EntityRef<PlotList>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int Id
-		{
-			get
-			{
-				return this._Id;
-			}
-			set
-			{
-				if ((this._Id != value))
-				{
-					this.OnIdChanging(value);
-					this.SendPropertyChanging();
-					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id_PlotList", DbType="Int")]
-		public System.Nullable<int> Id_PlotList
-		{
-			get
-			{
-				return this._Id_PlotList;
-			}
-			set
-			{
-				if ((this._Id_PlotList != value))
-				{
-					if (this._PlotList.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnId_PlotListChanging(value);
-					this.SendPropertyChanging();
-					this._Id_PlotList = value;
-					this.SendPropertyChanged("Id_PlotList");
-					this.OnId_PlotListChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Rumb", DbType="NVarChar(4) NOT NULL", CanBeNull=false)]
-		public string Rumb
-		{
-			get
-			{
-				return this._Rumb;
-			}
-			set
-			{
-				if ((this._Rumb != value))
-				{
-					this.OnRumbChanging(value);
-					this.SendPropertyChanging();
-					this._Rumb = value;
-					this.SendPropertyChanged("Rumb");
-					this.OnRumbChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Grade", DbType="Int NOT NULL")]
-		public int Grade
-		{
-			get
-			{
-				return this._Grade;
-			}
-			set
-			{
-				if ((this._Grade != value))
-				{
-					this.OnGradeChanging(value);
-					this.SendPropertyChanging();
-					this._Grade = value;
-					this.SendPropertyChanged("Grade");
-					this.OnGradeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Minutes", DbType="Int NOT NULL")]
-		public int Minutes
-		{
-			get
-			{
-				return this._Minutes;
-			}
-			set
-			{
-				if ((this._Minutes != value))
-				{
-					this.OnMinutesChanging(value);
-					this.SendPropertyChanging();
-					this._Minutes = value;
-					this.SendPropertyChanged("Minutes");
-					this.OnMinutesChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Length", DbType="Real NOT NULL")]
-		public float Length
-		{
-			get
-			{
-				return this._Length;
-			}
-			set
-			{
-				if ((this._Length != value))
-				{
-					this.OnLengthChanging(value);
-					this.SendPropertyChanging();
-					this._Length = value;
-					this.SendPropertyChanged("Length");
-					this.OnLengthChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="PlotList_Journal", Storage="_PlotList", ThisKey="Id_PlotList", OtherKey="Id", IsForeignKey=true)]
-		public PlotList PlotList
-		{
-			get
-			{
-				return this._PlotList.Entity;
-			}
-			set
-			{
-				PlotList previousValue = this._PlotList.Entity;
-				if (((previousValue != value) 
-							|| (this._PlotList.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._PlotList.Entity = null;
-						previousValue.Journal.Remove(this);
-					}
-					this._PlotList.Entity = value;
-					if ((value != null))
-					{
-						value.Journal.Add(this);
-						this._Id_PlotList = value.Id;
-					}
-					else
-					{
-						this._Id_PlotList = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("PlotList");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Leshoz")]
-	public partial class Leshoz : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private string _Leshoz1;
-		
-		private EntitySet<PlotList> _PlotList;
-		
-    #region Определения метода расширяемости
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnLeshoz1Changing(string value);
-    partial void OnLeshoz1Changed();
-    #endregion
-		
-		public Leshoz()
-		{
-			this._PlotList = new EntitySet<PlotList>(new Action<PlotList>(this.attach_PlotList), new Action<PlotList>(this.detach_PlotList));
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="Leshoz", Storage="_Leshoz1", DbType="NVarChar(30) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
-		public string Leshoz1
-		{
-			get
-			{
-				return this._Leshoz1;
-			}
-			set
-			{
-				if ((this._Leshoz1 != value))
-				{
-					this.OnLeshoz1Changing(value);
-					this.SendPropertyChanging();
-					this._Leshoz1 = value;
-					this.SendPropertyChanged("Leshoz1");
-					this.OnLeshoz1Changed();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Leshoz_PlotList", Storage="_PlotList", ThisKey="Leshoz1", OtherKey="Leshoz")]
-		public EntitySet<PlotList> PlotList
-		{
-			get
-			{
-				return this._PlotList;
-			}
-			set
-			{
-				this._PlotList.Assign(value);
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_PlotList(PlotList entity)
-		{
-			this.SendPropertyChanging();
-			entity.Leshoz1 = this;
-		}
-		
-		private void detach_PlotList(PlotList entity)
-		{
-			this.SendPropertyChanging();
-			entity.Leshoz1 = null;
 		}
 	}
 }
