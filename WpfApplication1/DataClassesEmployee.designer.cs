@@ -485,6 +485,8 @@ namespace WpfApplication1
 		
 		private int _Id_PlotList;
 		
+		private int _Identifier;
+		
 		private string _Rumb;
 		
 		private int _Grade;
@@ -503,6 +505,8 @@ namespace WpfApplication1
     partial void OnIdChanged();
     partial void OnId_PlotListChanging(int value);
     partial void OnId_PlotListChanged();
+    partial void OnIdentifierChanging(int value);
+    partial void OnIdentifierChanged();
     partial void OnRumbChanging(string value);
     partial void OnRumbChanged();
     partial void OnGradeChanging(int value);
@@ -559,6 +563,26 @@ namespace WpfApplication1
 					this._Id_PlotList = value;
 					this.SendPropertyChanged("Id_PlotList");
 					this.OnId_PlotListChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Identifier", DbType="Int NOT NULL")]
+		public int Identifier
+		{
+			get
+			{
+				return this._Identifier;
+			}
+			set
+			{
+				if ((this._Identifier != value))
+				{
+					this.OnIdentifierChanging(value);
+					this.SendPropertyChanging();
+					this._Identifier = value;
+					this.SendPropertyChanged("Identifier");
+					this.OnIdentifierChanged();
 				}
 			}
 		}
@@ -806,13 +830,15 @@ namespace WpfApplication1
 		
 		private decimal _Vudel;
 		
+		private int _PointNumber;
+		
+		private decimal _Area;
+		
+		private int _Year;
+		
 		private string _ShotPerformed;
 		
 		private string _PlanDrew;
-		
-		private int _PointNumber;
-		
-		private int _Year;
 		
 		private EntitySet<Journal> _Journal;
 		
@@ -842,14 +868,16 @@ namespace WpfApplication1
     partial void OnKvartalChanged();
     partial void OnVudelChanging(decimal value);
     partial void OnVudelChanged();
+    partial void OnPointNumberChanging(int value);
+    partial void OnPointNumberChanged();
+    partial void OnAreaChanging(decimal value);
+    partial void OnAreaChanged();
+    partial void OnYearChanging(int value);
+    partial void OnYearChanged();
     partial void OnShotPerformedChanging(string value);
     partial void OnShotPerformedChanged();
     partial void OnPlanDrewChanging(string value);
     partial void OnPlanDrewChanged();
-    partial void OnPointNumberChanging(int value);
-    partial void OnPointNumberChanged();
-    partial void OnYearChanging(int value);
-    partial void OnYearChanged();
     #endregion
 		
 		public PlotList()
@@ -995,6 +1023,66 @@ namespace WpfApplication1
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PointNumber", DbType="Int NOT NULL")]
+		public int PointNumber
+		{
+			get
+			{
+				return this._PointNumber;
+			}
+			set
+			{
+				if ((this._PointNumber != value))
+				{
+					this.OnPointNumberChanging(value);
+					this.SendPropertyChanging();
+					this._PointNumber = value;
+					this.SendPropertyChanged("PointNumber");
+					this.OnPointNumberChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Area", DbType="Decimal(5,2) NOT NULL")]
+		public decimal Area
+		{
+			get
+			{
+				return this._Area;
+			}
+			set
+			{
+				if ((this._Area != value))
+				{
+					this.OnAreaChanging(value);
+					this.SendPropertyChanging();
+					this._Area = value;
+					this.SendPropertyChanged("Area");
+					this.OnAreaChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Year", DbType="Int NOT NULL")]
+		public int Year
+		{
+			get
+			{
+				return this._Year;
+			}
+			set
+			{
+				if ((this._Year != value))
+				{
+					this.OnYearChanging(value);
+					this.SendPropertyChanging();
+					this._Year = value;
+					this.SendPropertyChanged("Year");
+					this.OnYearChanged();
+				}
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ShotPerformed", DbType="NVarChar(30) NOT NULL", CanBeNull=false)]
 		public string ShotPerformed
 		{
@@ -1039,46 +1127,6 @@ namespace WpfApplication1
 					this._PlanDrew = value;
 					this.SendPropertyChanged("PlanDrew");
 					this.OnPlanDrewChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PointNumber", DbType="Int NOT NULL")]
-		public int PointNumber
-		{
-			get
-			{
-				return this._PointNumber;
-			}
-			set
-			{
-				if ((this._PointNumber != value))
-				{
-					this.OnPointNumberChanging(value);
-					this.SendPropertyChanging();
-					this._PointNumber = value;
-					this.SendPropertyChanged("PointNumber");
-					this.OnPointNumberChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Year", DbType="Int NOT NULL")]
-		public int Year
-		{
-			get
-			{
-				return this._Year;
-			}
-			set
-			{
-				if ((this._Year != value))
-				{
-					this.OnYearChanging(value);
-					this.SendPropertyChanging();
-					this._Year = value;
-					this.SendPropertyChanged("Year");
-					this.OnYearChanged();
 				}
 			}
 		}

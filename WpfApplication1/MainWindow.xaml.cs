@@ -1,4 +1,6 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 using WpfApplication1.CodeLogic;
@@ -96,23 +98,26 @@ namespace WpfApplication1
 
         private void savePlanLcalDB_Click(object sender, RoutedEventArgs e) //добавление сьемки в БД
         {
-            ArrayList arrayList = new ArrayList();
+            List<string> arrayList = new List<string>();
 
-            arrayList.Add(coordinatesPolygon);//0
-            arrayList.Add(leshoz);//1
-            arrayList.Add(forestry);//2
-            arrayList.Add(felling);//3
-            arrayList.Add(kvartal);//4
-            arrayList.Add(vudel);//5
-            arrayList.Add(year);//6
-            arrayList.Add(pointNumber);//7
-            arrayList.Add(shotPerformedFN);//8
-            arrayList.Add(planDrewFN);//9
+            arrayList.Add(lableArea.Content.ToString());//0
+            arrayList.Add(leshoz.Text);//1
+            arrayList.Add(forestry.Text);//2
+            arrayList.Add(felling.Text);//3
+            arrayList.Add(kvartal.Text);//4
+            arrayList.Add(vudel.Text);//5
+            arrayList.Add(year.Text);//6
+            arrayList.Add(pointNumber.Text);//7
+            arrayList.Add(shotPerformedFN.Text);//8
+            arrayList.Add(planDrewFN.Text);//9                       
 
-            jobFromLocalDB.SaveLocalDB(arrayList);
+            jobFromLocalDB.Reset(new ObservableCollection<Points>(coordinatesPolygon.Collection()).Count);//обновление значения строки сообщения и передача количества точек в полигоне
+            jobFromLocalDB.SavePlotListDB(arrayList);//добавление данных сьемки в БД
+            jobFromLocalDB.SaveJournalPolygon(coordinatesPolygon, 1);//добавление журнала сьемки УЧАСТКА в БД
+            jobFromLocalDB.SaveJournalPolygon(coordinatesBinding, 0);//добавление журнала сьемки ПРИВЯЗКИ в БД
+
+            jobFromLocalDB.MessageShow();//вывод сообщения о результатах работы
         }
-
-        //!!!!!!!!!!!!!!!добавить точки привязки в БД!!!!!!!!!!!!!!!!!!!!!!!
     }
 }
 

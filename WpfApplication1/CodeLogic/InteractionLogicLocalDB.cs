@@ -4,11 +4,8 @@ using System.Collections.ObjectModel;
 using System.Data.Linq;
 using System.Linq;
 using System.Data.SqlClient;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Collections;
 
 namespace WpfApplication1.CodeLogic
 {
@@ -139,52 +136,62 @@ namespace WpfApplication1.CodeLogic
 
     class JobFromLocalDB
     {
-        public void SaveLocalDB(ArrayList arrayList)//добавление сьемки в БД
-        {
-            ObservableCollection<Points> сollectin = (arrayList[0] as Points).Collection();//колекция сьемки coordinatesPolygon
+        DataContext dc;//подключение к БД
+        string stringMessage = null; //строка сообщения о неуказанных данных         
+        int quantityPoint = 0; //количество введеных точек        
 
+        public JobFromLocalDB()
+        {
+            dc = new DataContext(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=E:\GitHub\Абрис\Outline\WpfApplication1\Employee.mdf;Integrated Security=True");
+        }
+
+        public void Reset(int x)//обновление значения глобальных переменных
+        {
+            stringMessage = null; //обнуление строки от предыдущих сообщений            
+            quantityPoint = x; //количество введеных точек участка      
+        }
+
+        public void SavePlotListDB(List<string> arrayList)//добавление данных сьемки в БД
+        {
             try
             {
-                DataContext dc = new DataContext(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=E:\GitHub\Абрис\Outline\WpfApplication1\Employee.mdf;Integrated Security=True");
-                int numberElementsPlotList = (from table in dc.GetTable<PlotList>()
-                                              select table.Id).Max();//количество строк с таблице PlotList (максимальное значение Id)
-
-                string stringMessage = null; //строка сообщения о неуказанных данных
-                int quantityPoint = сollectin.Count; //количество введеных точек
-
-                if ((arrayList[1] as ComboBox).Text == string.Empty)//leshoz
+                if (arrayList[0] == "0")//leshoz
+                {
+                    stringMessage += "Розрахуйте площу ділянки\n";
+                }
+                if (arrayList[1] == string.Empty)//leshoz
                 {
                     stringMessage += "Вкажіть назву лісгоспу \n";
                 }
-                if ((arrayList[2] as ComboBox).Text == string.Empty)//forestry
+                if (arrayList[2] == string.Empty)//forestry
                 {
                     stringMessage += "Вкажіть назву лісництва \n";
                 }
-                if ((arrayList[3] as ComboBox).Text == string.Empty)//felling
+                if (arrayList[3] == string.Empty)//felling
                 {
                     stringMessage += "Вкажіть вид рубки \n";
                 }
-                if ((arrayList[4] as TextBox).Text == string.Empty)//kvartal
+                if (arrayList[4] == string.Empty)//kvartal
                 {
                     stringMessage += "Вкажіть номер кварталу \n";
                 }
-                if ((arrayList[5] as TextBox).Text == string.Empty)//vudel
+                if (arrayList[5] == string.Empty)//vudel
                 {
                     stringMessage += "Вкажіть номер виділу \n";
                 }
-                if ((arrayList[6] as TextBox).Text == string.Empty)//year
+                if (arrayList[6] == string.Empty)//year
                 {
                     stringMessage += "Вкажіть рік заходу \n";
                 }
-                if ((arrayList[7] as TextBox).Text == string.Empty)//pointNumber
+                if (arrayList[7] == string.Empty)//pointNumber
                 {
                     stringMessage += "Вкажіть номер точки прив'язки \n";
                 }
-                if ((arrayList[8] as ComboBox).Text == string.Empty)//shotPerformedFN
+                if (arrayList[8] == string.Empty)//shotPerformedFN
                 {
                     stringMessage += "Вкажіть П.І.Б. особи яка виконала зйомку \n";
                 }
-                if ((arrayList[9] as ComboBox).Text == string.Empty)//planDrewFN
+                if (arrayList[9] == string.Empty)//planDrewFN
                 {
                     stringMessage += "Вкажіть П.І.Б. особи яка накреслила план \n";
                 }
@@ -197,44 +204,74 @@ namespace WpfApplication1.CodeLogic
                 {
                     PlotList tablePlotList = new PlotList(); // добавление данных сьемки
 
-                    tablePlotList.Leshoz = (arrayList[1] as ComboBox).Text;
-                    tablePlotList.Forestry = (arrayList[2] as ComboBox).Text;
-                    tablePlotList.Felling = (arrayList[3] as ComboBox).Text;
-                    tablePlotList.Kvartal = int.Parse((arrayList[4] as TextBox).Text);
-                    tablePlotList.Vudel = decimal.Parse((arrayList[5] as TextBox).Text);
-                    tablePlotList.Year = int.Parse((arrayList[6] as TextBox).Text);
-                    tablePlotList.PointNumber = int.Parse((arrayList[7] as TextBox).Text);
-                    tablePlotList.ShotPerformed = (arrayList[8] as ComboBox).Text;
-                    tablePlotList.PlanDrew = (arrayList[9] as ComboBox).Text;
+                    tablePlotList.Area = decimal.Parse(arrayList[0]);
+                    tablePlotList.Leshoz = arrayList[1];
+                    tablePlotList.Forestry = arrayList[2];
+                    tablePlotList.Felling = arrayList[3];
+                    tablePlotList.Kvartal = int.Parse(arrayList[4]);
+                    tablePlotList.Vudel = decimal.Parse(arrayList[5]);
+                    tablePlotList.Year = int.Parse(arrayList[6]);
+                    tablePlotList.PointNumber = int.Parse(arrayList[7]);
+                    tablePlotList.ShotPerformed = arrayList[8];
+                    tablePlotList.PlanDrew = arrayList[9];
 
                     dc.GetTable<PlotList>().InsertOnSubmit(tablePlotList);
                     dc.SubmitChanges();
-
-                    for (int i = 0; i < quantityPoint; i++)//добавление журнала сьемки
-                    {
-                        Journal tableJournal = new Journal();
-
-                        tableJournal.Id_PlotList = numberElementsPlotList + 1;
-                        tableJournal.Rumb = сollectin[i].Румб.ToString();
-                        tableJournal.Grade = сollectin[i].Градуси;
-                        tableJournal.Minutes = сollectin[i].Хвилини;
-                        tableJournal.Length = decimal.Parse(сollectin[i].Довжина.ToString());
-
-                        dc.GetTable<Journal>().InsertOnSubmit(tableJournal);
-                        dc.SubmitChanges();
-                    }
-
-                    MessageBox.Show("Зйомка успішно збережена в БД");
-                }
-                else
-                {
-                    MessageBox.Show(stringMessage);//вывод строки о неуказанных данных
                 }
             }
             catch (Exception)
             {
-                MessageBox.Show("Помилка підключення до БД. \n Спробуйте ще раз.");
+                MessageBox.Show("Помилка збереження даних зйомки. \n Спробуйте ще раз.");
             }
+        }
+
+        public void SaveJournalPolygon(Points coordinates, int x)//добавление журнала сьемки участка в БД
+        {
+            try
+            {
+                ObservableCollection<Points> сollectin = coordinates.Collection();
+                int numberElementsPlotList = 0;//значение Id в таблице PlotList
+                
+                var IdPlotList = from table in dc.GetTable<PlotList>()
+                                 select table.Id;//получаем столбец Id таблицы PlotList               
+
+                if (IdPlotList.Count() != 0)//количество строк в таблице PlotList (максимальное значение Id)
+                {
+                    numberElementsPlotList = IdPlotList.Max();
+                }            
+                 
+                for (int i = 0; i < сollectin.Count && stringMessage == null; i++)//добавление журнала сьемки участка
+                {
+                    Journal tableJournal = new Journal();
+
+                    tableJournal.Id_PlotList = numberElementsPlotList;
+                    tableJournal.Identifier = x;
+                    tableJournal.Rumb = сollectin[i].Румб.ToString();
+                    tableJournal.Grade = сollectin[i].Градуси;
+                    tableJournal.Minutes = сollectin[i].Хвилини;
+                    tableJournal.Length = decimal.Parse(сollectin[i].Довжина.ToString());
+
+                    dc.GetTable<Journal>().InsertOnSubmit(tableJournal);
+                    dc.SubmitChanges();
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Помилка збереження журналу зйомки. \n Спробуйте ще раз.");
+            }
+        }
+
+        public void MessageShow()//вывод сообщения о результатах работы
+        {
+            if (stringMessage == null && quantityPoint != 0)
+            {
+                MessageBox.Show("Зйомка успішно збережена в БД");
+            }
+            else
+            {
+                MessageBox.Show(stringMessage);//вывод строки о неуказанных данных
+            }
+
         }
     }
 }

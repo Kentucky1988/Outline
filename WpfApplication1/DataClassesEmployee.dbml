@@ -25,6 +25,7 @@
     <Type Name="Journal">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="Id_PlotList" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Identifier" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="Rumb" Type="System.String" DbType="NVarChar(4) NOT NULL" CanBeNull="false" />
       <Column Name="Grade" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="Minutes" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
@@ -46,10 +47,11 @@
       <Column Name="Felling" Type="System.String" DbType="NVarChar(30) NOT NULL" CanBeNull="false" />
       <Column Name="Kvartal" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="Vudel" Type="System.Decimal" DbType="Decimal(5,2) NOT NULL" CanBeNull="false" />
+      <Column Name="PointNumber" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Area" Type="System.Decimal" DbType="Decimal(5,2) NOT NULL" CanBeNull="false" />
+      <Column Name="Year" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="ShotPerformed" Type="System.String" DbType="NVarChar(30) NOT NULL" CanBeNull="false" />
       <Column Name="PlanDrew" Type="System.String" DbType="NVarChar(30) NOT NULL" CanBeNull="false" />
-      <Column Name="PointNumber" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Year" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Association Name="PlotList_Journal" Member="Journal" ThisKey="Id" OtherKey="Id_PlotList" Type="Journal" />
       <Association Name="Employe_PlotList" Member="Employe" ThisKey="ShotPerformed" OtherKey="Employe1" Type="Employe" IsForeignKey="true" />
       <Association Name="Employe_PlotList1" Member="Employe1" ThisKey="PlanDrew" OtherKey="Employe1" Type="Employe" IsForeignKey="true" />
