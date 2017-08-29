@@ -61,13 +61,14 @@ namespace WpfApplication1.CodeLogic
             }
             catch (Exception)
             {
+                 cn.Close();
                 MessageBox.Show("Помилка відкриття БД");
             }
 
 
         }
 
-        public void ComboBox_Opened(ComboBox leshoz, ComboBox forestry)//обновление содержимого выпадающего списка при его открытие
+        public void ComboBox_Opened(ComboBox leshoz, ComboBox forestry)//обновление содержимого выпадающего списка при его открытие в зависимости от значения в другом ComboBox
         {
             try
             {
@@ -99,6 +100,7 @@ namespace WpfApplication1.CodeLogic
             }
             catch (Exception)
             {
+                cn.Close();
                 MessageBox.Show("Помилка відкриття БД");
             }
         }
@@ -109,7 +111,7 @@ namespace WpfApplication1.CodeLogic
             {
                 cn.Open();
 
-                string strSQL = $"SELECT * FROM Employe WHERE Employe = '{(sender).Text}'";
+                string strSQL = $"SELECT * FROM Employe WHERE Employe = N'{(sender).Text}'";
                 SqlCommand myCommand = new SqlCommand(strSQL, cn);
                 SqlDataReader dr = myCommand.ExecuteReader();
 
@@ -129,8 +131,93 @@ namespace WpfApplication1.CodeLogic
             }
             catch (Exception)
             {
+                cn.Close();
                 MessageBox.Show("Помилка відкриття БД");
             }
+        }
+
+
+        public void ComboBoxOpened_ShowTableDbPlotList(ComboBox comboBox, List<string> arrayList)//обновление содержимого выпадающего списка в при его открытие,
+        {                                                                                        //окно роботы с БД
+            try
+            {
+                cn.Open();
+                string strSQL = $"SELECT DISTINCT {comboBox.Name} FROM PlotList WHERE Leshoz = N'{arrayList[0]}' ";
+
+                if (comboBox.Name == "Leshoz")
+                {
+                    strSQL = $"SELECT DISTINCT Leshoz FROM PlotList";
+                }
+                else
+                {
+                    if (arrayList[0] != string.Empty && comboBox.Name != "Forestry" && arrayList[1] != string.Empty)
+                    {
+                        strSQL += $"AND Forestry = N'{arrayList[1]}'";
+                    }
+                    if (arrayList[0] != string.Empty && comboBox.Name != "Felling" && arrayList[2] != string.Empty)
+                    {
+                        strSQL += $"AND Felling = N'{arrayList[2]}'";
+                    }
+                    if (arrayList[0] != string.Empty && comboBox.Name != "Kvartal" && arrayList[3] != string.Empty)
+                    {
+                        strSQL += $"AND Kvartal = N'{arrayList[3]}'";
+                    }
+                    if (arrayList[0] != string.Empty && comboBox.Name != "Year" && arrayList[4] != string.Empty)
+                    {
+                        strSQL += $"AND Year = N'{arrayList[4]}'";
+                    }
+                    if (arrayList[0] != string.Empty && comboBox.Name != "ShotPerformed" && arrayList[5] != string.Empty)
+                    {
+                        strSQL += $"AND ShotPerformed = N'{arrayList[5]}'";
+                    }
+                    if (arrayList[0] != string.Empty && comboBox.Name != "PlanDrew" && arrayList[6] != string.Empty)
+                    {
+                        strSQL += $"AND PlanDrew = N'{arrayList[6]}'";
+                    }
+                }
+
+                SqlCommand myCommand = new SqlCommand(strSQL, cn);
+                SqlDataReader dr = myCommand.ExecuteReader();
+
+                comboBox.Items.Clear();//удаление содержимого выпадающего списка чтоб небыло (список * 2)
+
+                while (dr.Read())
+                {
+                    string sName = dr[0].ToString();
+                    comboBox.Items.Add(sName);// добавление значений в ComboBox                
+                }
+
+                cn.Close();
+            }
+            catch (Exception)
+            {
+                cn.Close();
+                MessageBox.Show("Помилка відкриття БД");
+            }
+        }
+
+        public void ShowTablePlotListDataGrid(DataGrid showTablePlotListDataGrid, DataContext dc, List<string> arrayList)
+        {
+            showTablePlotListDataGrid.ItemsSource = from table in dc.GetTable<PlotList>()
+                                                    where ((arrayList[0] != string.Empty) ? (table.Leshoz == arrayList[0]) : true)
+                                                    where ((arrayList[1] != string.Empty) ? (table.Forestry == arrayList[1]) : true)
+                                                    where ((arrayList[2] != string.Empty) ? (table.Felling == arrayList[2]) : true)
+                                                    where ((arrayList[3] != string.Empty) ? (table.Kvartal == int.Parse((!string.IsNullOrEmpty(arrayList[3]) ? arrayList[3] : "0"))) : true)
+                                                    where ((arrayList[4] != string.Empty) ? (table.Year == int.Parse((!string.IsNullOrEmpty(arrayList[4]) ? arrayList[4] : "0"))) : true)
+                                                    where ((arrayList[5] != string.Empty) ? (table.ShotPerformed == arrayList[5]) : true)
+                                                    where ((arrayList[6] != string.Empty) ? (table.PlanDrew == arrayList[6]) : true)
+                                                    select new
+                                                    {
+                                                        Лісгосп = table.Leshoz,
+                                                        Лісництво = table.Forestry,
+                                                        Вид_рубки = table.Felling,
+                                                        Квартал = table.Kvartal,
+                                                        Виділ = table.Vudel,
+                                                        Площа = table.Area,
+                                                        Рік_рубки = table.Year,
+                                                        Зйомку_виконав = table.ShotPerformed,
+                                                        План_накреслив = table.PlanDrew,
+                                                    };
         }
     }
 
@@ -231,15 +318,15 @@ namespace WpfApplication1.CodeLogic
             {
                 ObservableCollection<Points> сollectin = coordinates.Collection();
                 int numberElementsPlotList = 0;//значение Id в таблице PlotList
-                
+
                 var IdPlotList = from table in dc.GetTable<PlotList>()
                                  select table.Id;//получаем столбец Id таблицы PlotList               
 
                 if (IdPlotList.Count() != 0)//количество строк в таблице PlotList (максимальное значение Id)
                 {
                     numberElementsPlotList = IdPlotList.Max();
-                }            
-                 
+                }
+
                 for (int i = 0; i < сollectin.Count && stringMessage == null; i++)//добавление журнала сьемки участка
                 {
                     Journal tableJournal = new Journal();

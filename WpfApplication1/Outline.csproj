@@ -80,6 +80,9 @@
     </ApplicationDefinition>
     <Compile Include="CodeLogic\InteractionLogicLocalDB.cs" />
     <Compile Include="CodeLogic\Сollection.cs" />
+    <Compile Include="ShowTableDbPlotList.xaml.cs">
+      <DependentUpon>ShowTableDbPlotList.xaml</DependentUpon>
+    </Compile>
     <Page Include="EditingLcalDB.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -106,6 +109,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Print.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ShowTableDbPlotList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

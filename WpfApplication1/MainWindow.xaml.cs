@@ -92,8 +92,7 @@ namespace WpfApplication1
 
         private void editingLcalDB_Click(object sender, RoutedEventArgs e)//открытие окна редактирования БД
         {
-            EditingLcalDB showEditingLcalDB = new EditingLcalDB();
-            showEditingLcalDB.Show();
+            new EditingLcalDB().Show();
         }
 
         private void savePlanLcalDB_Click(object sender, RoutedEventArgs e) //добавление сьемки в БД
@@ -117,6 +116,11 @@ namespace WpfApplication1
             jobFromLocalDB.SaveJournalPolygon(coordinatesBinding, 0);//добавление журнала сьемки ПРИВЯЗКИ в БД
 
             jobFromLocalDB.MessageShow();//вывод сообщения о результатах работы
+        }
+                
+        private void openPlanLcalDB_Click(object sender, RoutedEventArgs e)//открытие окна для выбора участка из БД для отображения
+        {
+             new ShowTableDbPlotList().Show();
         }
     }
 }
