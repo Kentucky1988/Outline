@@ -6,11 +6,13 @@ using System.Linq;
 using System.Data.SqlClient;
 using System.Windows;
 using System.Windows.Controls;
+using System.Collections;
+using System.Data;
 
 namespace WpfApplication1.CodeLogic
 {
 
-    class InteractionLogicLocalDB
+    class InteractionLogicLocalDB//Логика взаимодействия с LocalDB
     {
         SqlConnection cn;//подключение к БД
 
@@ -61,7 +63,7 @@ namespace WpfApplication1.CodeLogic
             }
             catch (Exception)
             {
-                 cn.Close();
+                cn.Close();
                 MessageBox.Show("Помилка відкриття БД");
             }
 
@@ -136,7 +138,6 @@ namespace WpfApplication1.CodeLogic
             }
         }
 
-
         public void ComboBoxOpened_ShowTableDbPlotList(ComboBox comboBox, List<string> arrayList)//обновление содержимого выпадающего списка в при его открытие,
         {                                                                                        //окно роботы с БД
             try
@@ -196,7 +197,7 @@ namespace WpfApplication1.CodeLogic
             }
         }
 
-        public void ShowTablePlotListDataGrid(DataGrid showTablePlotListDataGrid, DataContext dc, List<string> arrayList)
+        public void ShowTablePlotListDataGrid(DataGrid showTablePlotListDataGrid, DataContext dc, List<string> arrayList)//отображение содержимого в DataGrid в зависимости от выбраного значения в ComboBox
         {
             showTablePlotListDataGrid.ItemsSource = from table in dc.GetTable<PlotList>()
                                                     where ((arrayList[0] != string.Empty) ? (table.Leshoz == arrayList[0]) : true)
@@ -208,6 +209,7 @@ namespace WpfApplication1.CodeLogic
                                                     where ((arrayList[6] != string.Empty) ? (table.PlanDrew == arrayList[6]) : true)
                                                     select new
                                                     {
+                                                        Номер = table.Id,
                                                         Лісгосп = table.Leshoz,
                                                         Лісництво = table.Forestry,
                                                         Вид_рубки = table.Felling,
@@ -221,13 +223,13 @@ namespace WpfApplication1.CodeLogic
         }
     }
 
-    class JobFromLocalDB
+    class SaveFromLocalDB//сохранение данных в БД
     {
         DataContext dc;//подключение к БД
         string stringMessage = null; //строка сообщения о неуказанных данных         
         int quantityPoint = 0; //количество введеных точек        
 
-        public JobFromLocalDB()
+        public SaveFromLocalDB()
         {
             dc = new DataContext(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=E:\GitHub\Абрис\Outline\WpfApplication1\Employee.mdf;Integrated Security=True");
         }
@@ -359,6 +361,50 @@ namespace WpfApplication1.CodeLogic
                 MessageBox.Show(stringMessage);//вывод строки о неуказанных данных
             }
 
+        }
+    }
+
+    class DisplayingDataLocalDB//отображение данных из БД в главном окне
+    {
+        public void DisplayingPlotListDB(DataGrid showTablePlotListDataGrid, DataContext dc, ArrayList colectionElement)//отображение данных лесхоза из БД в окне
+        {
+
+            PlotList tablePlotList = new PlotList(); // добавление данных сьемки
+            InteractionLogicLocalDB logicLocalDB = new InteractionLogicLocalDB();
+            try
+            {
+                var selectedCell = showTablePlotListDataGrid.SelectedCells[0];
+                var cellContent = selectedCell.Column.GetCellContent(selectedCell.Item);
+                int index = int.Parse((cellContent as TextBlock).Text);//получение значение ID выделеного столбца
+
+                var selectedItem = (from table in dc.GetTable<PlotList>()
+                                    where table.Id == index
+                                    select table).ToArray();//получаем значение выделенной строки         
+
+                (colectionElement[0] as Label).Content = selectedItem[0].Area.ToString();
+                (colectionElement[1] as ComboBox).Text = selectedItem[0].Leshoz.ToString();
+                (colectionElement[2] as ComboBox).Text = selectedItem[0].Forestry.ToString();
+                (colectionElement[3] as ComboBox).Text = selectedItem[0].Felling.ToString();
+                (colectionElement[4] as TextBox).Text = selectedItem[0].Kvartal.ToString();
+                (colectionElement[5] as TextBox).Text = selectedItem[0].Vudel.ToString();
+                (colectionElement[6] as TextBox).Text = selectedItem[0].Year.ToString();
+                (colectionElement[7] as TextBox).Text = selectedItem[0].PointNumber.ToString();
+                (colectionElement[8] as ComboBox).Text = selectedItem[0].ShotPerformed.ToString();
+                (colectionElement[9] as ComboBox).Text = selectedItem[0].PlanDrew.ToString();
+
+                logicLocalDB.ComboBox_Opened(colectionElement[8] as ComboBox, colectionElement[10] as Label, colectionElement[11] as Label);
+                logicLocalDB.ComboBox_Opened(colectionElement[9] as ComboBox, colectionElement[10] as Label, colectionElement[11] as Label);
+
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Виберіть ділянку");
+            }
+        }
+
+        public void DisplayingJournalPolygon(Points coordinates, int x)//добавление журнала сьемки участка в БД
+        {
+            
         }
     }
 }

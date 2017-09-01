@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data.Linq;
 using System.Linq;
@@ -23,13 +24,17 @@ namespace WpfApplication1
     {
         DataContext dc;//подключение к БД
         InteractionLogicLocalDB logicLocalDB;//отображать значения в ComboBox из БД
+        DisplayingDataLocalDB displayingDataLocalDB;//отображение данных из БД в главном окне
+        ArrayList colectionElement;//колекция елементов из главного окна
 
-        public ShowTableDbPlotList()
+        public ShowTableDbPlotList(ArrayList colectionElement)
         {
             InitializeComponent();
             logicLocalDB = new InteractionLogicLocalDB();//отображать значения в ComboBox из БД
+            displayingDataLocalDB = new DisplayingDataLocalDB();//отображение данных из БД в главном окне
             dc = new DataContext(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=E:\GitHub\Абрис\Outline\WpfApplication1\Employee.mdf;Integrated Security=True");
             logicLocalDB.ShowTablePlotListDataGrid(showTablePlotListDataGrid, dc, ColectionContentComboBox());
+            this.colectionElement = colectionElement;
         }
 
         private List<string> ColectionContentComboBox()
@@ -53,9 +58,15 @@ namespace WpfApplication1
             logicLocalDB.ComboBoxOpened_ShowTableDbPlotList(sender as ComboBox, ColectionContentComboBox());
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
+        private void ClosedComboBox_ShowInDataGrid(object sender, EventArgs e)
+        {//событие на закрытие ComboBox и отображение в DataGrid выбранной информации
             logicLocalDB.ShowTablePlotListDataGrid(showTablePlotListDataGrid, dc, ColectionContentComboBox());
         }
+
+        private void ShowPlot(object sender, RoutedEventArgs e)
+        {
+            displayingDataLocalDB.DisplayingPlotListDB(showTablePlotListDataGrid, dc, colectionElement);
+        }
+
     }
 }

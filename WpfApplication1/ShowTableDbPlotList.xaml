@@ -15,13 +15,14 @@
         <Label Content="Рік рубки" HorizontalAlignment="Left" Margin="222,35,0,0" VerticalAlignment="Top"/>
         <Label Content="Зйомку виконав" HorizontalAlignment="Left" Margin="360,10,0,0" VerticalAlignment="Top"/>
         <Label Content="План накреслив" HorizontalAlignment="Left" Margin="361,36,0,0" VerticalAlignment="Top"/>
-        <ComboBox Name ="Leshoz"  HorizontalAlignment="Left" Margin="76,10,0,0" VerticalAlignment="Top" Width="147" DropDownOpened="ComboBoxOpened_ShowTableDbPlotList"/>
-        <ComboBox Name ="Forestry" HorizontalAlignment="Left" Margin="76,37,0,0" VerticalAlignment="Top" Width="147" DropDownOpened="ComboBoxOpened_ShowTableDbPlotList"/>
-        <ComboBox Name ="Felling" HorizontalAlignment="Left" Margin="76,64,0,0" VerticalAlignment="Top" Width="147" DropDownOpened="ComboBoxOpened_ShowTableDbPlotList"/>
-        <ComboBox Name ="Kvartal" HorizontalAlignment="Left" Margin="284,10,0,0" VerticalAlignment="Top" Width="80" DropDownOpened="ComboBoxOpened_ShowTableDbPlotList"/>
-        <ComboBox Name ="Year" HorizontalAlignment="Left" Margin="284,40,0,0" VerticalAlignment="Top" Width="80" DropDownOpened="ComboBoxOpened_ShowTableDbPlotList"/>
-        <ComboBox Name ="ShotPerformed" HorizontalAlignment="Left" Margin="465,10,0,0" VerticalAlignment="Top" Width="117" DropDownOpened="ComboBoxOpened_ShowTableDbPlotList"/>
-        <ComboBox Name ="PlanDrew" HorizontalAlignment="Left" Margin="465,37,0,0" VerticalAlignment="Top" Width="117" DropDownOpened="ComboBoxOpened_ShowTableDbPlotList"/>
-        <Button Content="Вибрати ділянки" HorizontalAlignment="Left" Margin="465,68,0,0" VerticalAlignment="Top" Width="117" Click="Button_Click"/>
+        <ComboBox Name ="Leshoz"  HorizontalAlignment="Left" Margin="76,10,0,0" VerticalAlignment="Top" Width="147" DropDownOpened="ComboBoxOpened_ShowTableDbPlotList" DropDownClosed="ClosedComboBox_ShowInDataGrid"/>
+        <ComboBox Name ="Forestry" HorizontalAlignment="Left" Margin="76,37,0,0" VerticalAlignment="Top" Width="147" DropDownOpened="ComboBoxOpened_ShowTableDbPlotList" DropDownClosed="ClosedComboBox_ShowInDataGrid"/>
+        <ComboBox Name ="Felling" HorizontalAlignment="Left" Margin="76,64,0,0" VerticalAlignment="Top" Width="147" DropDownOpened="ComboBoxOpened_ShowTableDbPlotList" DropDownClosed="ClosedComboBox_ShowInDataGrid"/>
+        <ComboBox Name ="Kvartal" HorizontalAlignment="Left" Margin="284,10,0,0" VerticalAlignment="Top" Width="80" DropDownOpened="ComboBoxOpened_ShowTableDbPlotList" DropDownClosed="ClosedComboBox_ShowInDataGrid"/>
+        <ComboBox Name ="Year" HorizontalAlignment="Left" Margin="284,40,0,0" VerticalAlignment="Top" Width="80" DropDownOpened="ComboBoxOpened_ShowTableDbPlotList" DropDownClosed="ClosedComboBox_ShowInDataGrid"/>
+        <ComboBox Name ="ShotPerformed" HorizontalAlignment="Left" Margin="465,10,0,0" VerticalAlignment="Top" Width="117" DropDownOpened="ComboBoxOpened_ShowTableDbPlotList" DropDownClosed="ClosedComboBox_ShowInDataGrid"/>
+        <ComboBox Name ="PlanDrew" HorizontalAlignment="Left" Margin="465,37,0,0" VerticalAlignment="Top" Width="117" DropDownOpened="ComboBoxOpened_ShowTableDbPlotList" DropDownClosed="ClosedComboBox_ShowInDataGrid"/>
+        <Button Content="Вибрати ділянку" HorizontalAlignment="Left" Margin="442,67,0,0" VerticalAlignment="Top" Width="140" Click="ShowPlot"/>
+
     </Grid>
 </Window>

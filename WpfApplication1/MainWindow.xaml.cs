@@ -17,7 +17,7 @@ namespace WpfApplication1
         Points coordinatesPolygon; //сьемка полигона 
         Points coordinatesBinding; //сьемка привязки
         InteractionLogicLocalDB logicLocalDB;//отображать значения в ComboBox из БД
-        JobFromLocalDB jobFromLocalDB;//клас сохранения, извличения, удаления сьемок в БД
+        SaveFromLocalDB saveFromLocalDB;//клас сохранения, извличения, удаления сьемок в БД
 
         public MainWindow()
         {
@@ -29,7 +29,7 @@ namespace WpfApplication1
             dataGrid.ItemsSource = coordinatesPolygon.Collection();
             dataGridBindg.ItemsSource = coordinatesBinding.Collection();
             logicLocalDB = new InteractionLogicLocalDB();//отображать значения в ComboBox из БД
-            jobFromLocalDB = new JobFromLocalDB();//клас сохранения, извличения, удаления сьемок в БД
+            saveFromLocalDB = new SaveFromLocalDB();//клас сохранения, извличения, удаления сьемок в БД
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -110,17 +110,32 @@ namespace WpfApplication1
             arrayList.Add(shotPerformedFN.Text);//8
             arrayList.Add(planDrewFN.Text);//9                       
 
-            jobFromLocalDB.Reset(new ObservableCollection<Points>(coordinatesPolygon.Collection()).Count);//обновление значения строки сообщения и передача количества точек в полигоне
-            jobFromLocalDB.SavePlotListDB(arrayList);//добавление данных сьемки в БД
-            jobFromLocalDB.SaveJournalPolygon(coordinatesPolygon, 1);//добавление журнала сьемки УЧАСТКА в БД
-            jobFromLocalDB.SaveJournalPolygon(coordinatesBinding, 0);//добавление журнала сьемки ПРИВЯЗКИ в БД
+            saveFromLocalDB.Reset(new ObservableCollection<Points>(coordinatesPolygon.Collection()).Count);//обновление значения строки сообщения и передача количества точек в полигоне
+            saveFromLocalDB.SavePlotListDB(arrayList);//добавление данных сьемки в БД
+            saveFromLocalDB.SaveJournalPolygon(coordinatesPolygon, 1);//добавление журнала сьемки УЧАСТКА в БД
+            saveFromLocalDB.SaveJournalPolygon(coordinatesBinding, 0);//добавление журнала сьемки ПРИВЯЗКИ в БД
 
-            jobFromLocalDB.MessageShow();//вывод сообщения о результатах работы
+            saveFromLocalDB.MessageShow();//вывод сообщения о результатах работы
         }
                 
         private void openPlanLcalDB_Click(object sender, RoutedEventArgs e)//открытие окна для выбора участка из БД для отображения
         {
-             new ShowTableDbPlotList().Show();
+            ArrayList colectionElement = new ArrayList();
+
+            colectionElement.Add(lableArea);//0
+            colectionElement.Add(leshoz);//1
+            colectionElement.Add(forestry);//2
+            colectionElement.Add(felling);//3
+            colectionElement.Add(kvartal);//4
+            colectionElement.Add(vudel);//5
+            colectionElement.Add(year);//6
+            colectionElement.Add(pointNumber);//7
+            colectionElement.Add(shotPerformedFN);//8
+            colectionElement.Add(planDrewFN);//9 
+            colectionElement.Add(shotPerformed);//10
+            colectionElement.Add(planDrew);//11
+
+            new ShowTableDbPlotList(colectionElement).Show();
         }
     }
 }
