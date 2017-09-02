@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Windows;
 
 namespace WpfApplication1
@@ -50,9 +51,10 @@ namespace WpfApplication1
         public double Довжина { get; set; }
 
         ObservableCollection<Points> collection = new ObservableCollection<Points>();
-        public ObservableCollection<Points> Collection()
+        public List<Points> Collection()
         {
-            return collection;
+            List<Points> colectionPoint = new List<Points>(collection);
+            return colectionPoint;
         }
     }
 

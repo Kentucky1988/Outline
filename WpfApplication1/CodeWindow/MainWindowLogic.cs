@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace WpfApplication1
 {
@@ -38,13 +39,15 @@ namespace WpfApplication1
             poligon.lableDiscrepancy.Content = $"Увага не'вязка: { array[1]} м"; //неувязка
         }
 
-        public void Clear(Points coordinatesPolygon, Points coordinatesBinding)
+        public void Clear(Points coordinatesPolygon, Points coordinatesBinding, DataGrid dataGrid, DataGrid dataGridBindg)
         {
             MessageBoxResult clear = MessageBox.Show("Очистити полігон ?", "Очистка полігону", MessageBoxButton.YesNo);
             if (clear == MessageBoxResult.Yes)
             {
                 coordinatesBinding.Collection().Clear();
                 coordinatesPolygon.Collection().Clear();
+                dataGrid.ItemsSource = coordinatesPolygon.Collection();
+                dataGridBindg.ItemsSource = coordinatesBinding.Collection();
                 poligon.myGrid.Children.Clear();
                 poligon.kvartal.Text = "";
                 poligon.vudel.Text = "";

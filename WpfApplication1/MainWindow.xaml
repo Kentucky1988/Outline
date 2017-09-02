@@ -82,7 +82,7 @@
                     <Label Content="План накреслив: Посада"/>
                     <Label Name="planDrew" MinWidth="80" Padding="5"/>
                     <Label Content="П.І.Б."/>
-                    <ComboBox Name="planDrewFN"  MinWidth="80" Padding="5" DropDownClosed="shotPerformedFN_DropDownClosed" DropDownOpened="planDrewFN_DropDownOpened"/>
+                    <ComboBox Name="planDrewFN"  MinWidth="80" Padding="5" DropDownClosed="planDrew_DropDownClosed" DropDownOpened="planDrewFN_DropDownOpened"/>
                 </StackPanel>
             </StackPanel>
             <StackPanel Grid.Column="1" Grid.ColumnSpan="2">

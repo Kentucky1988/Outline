@@ -22,7 +22,8 @@
         <ComboBox Name ="Year" HorizontalAlignment="Left" Margin="284,40,0,0" VerticalAlignment="Top" Width="80" DropDownOpened="ComboBoxOpened_ShowTableDbPlotList" DropDownClosed="ClosedComboBox_ShowInDataGrid"/>
         <ComboBox Name ="ShotPerformed" HorizontalAlignment="Left" Margin="465,10,0,0" VerticalAlignment="Top" Width="117" DropDownOpened="ComboBoxOpened_ShowTableDbPlotList" DropDownClosed="ClosedComboBox_ShowInDataGrid"/>
         <ComboBox Name ="PlanDrew" HorizontalAlignment="Left" Margin="465,37,0,0" VerticalAlignment="Top" Width="117" DropDownOpened="ComboBoxOpened_ShowTableDbPlotList" DropDownClosed="ClosedComboBox_ShowInDataGrid"/>
-        <Button Content="Вибрати ділянку" HorizontalAlignment="Left" Margin="442,67,0,0" VerticalAlignment="Top" Width="140" Click="ShowPlot"/>
+        <Button Content="Вибрати ділянку" HorizontalAlignment="Left" VerticalAlignment="Top" Width="140" Click="ShowPlot" Margin="284,67,0,0"/>
+        <Button Content="Видалити ділянку" HorizontalAlignment="Left" VerticalAlignment="Top" Width="140" Click="DeletePlot" Margin="442,68,0,0"/>
 
     </Grid>
 </Window>

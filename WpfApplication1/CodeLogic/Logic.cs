@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
@@ -12,7 +13,7 @@ namespace WpfApplication1
         Point[] myPoligon;//масив координат ХУ полигона
         Point[] myBinding;//масив координат ХУ привязки       
 
-        public Point[] CalculationCoordinates(ObservableCollection<Points> сollection, int[] array, int x)//расчет координат
+        public Point[] CalculationCoordinates(List<Points> сollection, int[] array, int x)//расчет координат
         {
             int a = сollection.Count + 1;//длина масива + координаты первой точки
             Point[] arrayPoligon = new Point[a];//создаем масив координат ХУ
@@ -129,7 +130,7 @@ namespace WpfApplication1
             return Math.Sqrt(Math.Pow(A.X - B.X, 2) + Math.Pow(A.Y - B.Y, 2));
         }
 
-        public Canvas Number(ObservableCollection<Points> coordinatesPolygon, ObservableCollection<Points> coordinatesBinding, int[] array)//расчет координат номеров линий
+        public Canvas Number(List<Points> coordinatesPolygon, List<Points> coordinatesBinding, int[] array)//расчет координат номеров линий
         {
             Canvas numberLines = new Canvas(); //отображение номеров линий
             myPoligon = CalculationCoordinates(coordinatesPolygon, array, 0);//принимаем масив координат ХУ полигона

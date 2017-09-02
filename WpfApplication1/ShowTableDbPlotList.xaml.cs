@@ -53,8 +53,7 @@ namespace WpfApplication1
         }
 
         private void ComboBoxOpened_ShowTableDbPlotList(object sender, EventArgs e)
-        {//событие на открытие ComboBox
-            
+        {//событие на открытие ComboBox            
             logicLocalDB.ComboBoxOpened_ShowTableDbPlotList(sender as ComboBox, ColectionContentComboBox());
         }
 
@@ -65,8 +64,15 @@ namespace WpfApplication1
 
         private void ShowPlot(object sender, RoutedEventArgs e)
         {
-            displayingDataLocalDB.DisplayingPlotListDB(showTablePlotListDataGrid, dc, colectionElement);
+            displayingDataLocalDB.IndexItem(showTablePlotListDataGrid, dc);//получаем индекс выделеного участка передача стороки подключение к БД
+            displayingDataLocalDB.DisplayingPlotListDB(colectionElement);//отображение данных лесхоза из БД в окне
+            displayingDataLocalDB.DisplayingJournalPolygon(colectionElement[12] as DataGrid);//добавление журнала сьемки участка из БД в DataGrid
+            displayingDataLocalDB.DisplayingJournalPolygon(colectionElement[13] as DataGrid);//добавление журнала привязки участка из БД в DataGrid
         }
 
+        private void DeletePlot(object sender, RoutedEventArgs e)//удаление участка из БД
+        {
+            //удалять участки через LINQ запроси
+        }
     }
 }
