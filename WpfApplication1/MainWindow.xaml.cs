@@ -120,6 +120,9 @@ namespace WpfApplication1
             colectionElement.Add(planDrew);//11
             colectionElement.Add(dataGrid);//12
             colectionElement.Add(dataGridBindg);//13
+            colectionElement.Add(myGrid);//14
+            colectionElement.Add(class1);//15
+            colectionElement.Add(mainWindowLogic);//16 
 
             return colectionElement;
         }

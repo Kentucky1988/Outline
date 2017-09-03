@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Data.Linq;
 using System.Linq;
 using System.Data.SqlClient;
@@ -241,7 +240,7 @@ namespace WpfApplication1.CodeLogic
             quantityPoint = x; //количество введеных точек участка      
         }
 
-        public void SavePlotListDB(ArrayList  colectionElement)//добавление данных сьемки в БД
+        public void SavePlotListDB(ArrayList colectionElement)//добавление данных сьемки в БД
         {
             try
             {
@@ -318,7 +317,7 @@ namespace WpfApplication1.CodeLogic
         public void SaveJournalPolygon(List<Points> сollectin, int x)//добавление журнала сьемки участка в БД
         {
             try
-            {                
+            {
                 int numberElementsPlotList = 0;//значение Id в таблице PlotList
 
                 var IdPlotList = from table in dc.GetTable<PlotList>()
@@ -410,21 +409,49 @@ namespace WpfApplication1.CodeLogic
         {
 
             var collectionСoordinates = (from table in dc.GetTable<Journal>()
-                                        where table.Id_PlotList == index
-                                        where ((dataGrid.Name == "dataGrid") ? (table.Identifier == 1) : (table.Identifier == 0))
-                                        select new Points
-                                        {
-                                            Румб = (table.Rumb == "ПнСх" ? Rumb.ПнСх :
-                                            (table.Rumb == "ПдСх" ? Rumb.ПдСх :
-                                            (table.Rumb == "ПдЗх" ? Rumb.ПдЗх :
-                                            (table.Rumb == "ПнЗх" ? Rumb.ПнЗх : Rumb.x)))),
-                                            Градуси = table.Grade,
-                                            Хвилини = table.Minutes,
-                                            Довжина = Convert.ToDouble(table.Length),
-                                        }).ToList();
+                                         where table.Id_PlotList == index
+                                         where ((dataGrid.Name == "dataGrid") ? (table.Identifier == 1) : (table.Identifier == 0))
+                                         select new Points
+                                         {
+                                             Румб = (table.Rumb == "ПнСх" ? Rumb.ПнСх :
+                                             (table.Rumb == "ПдСх" ? Rumb.ПдСх :
+                                             (table.Rumb == "ПдЗх" ? Rumb.ПдЗх :
+                                             (table.Rumb == "ПнЗх" ? Rumb.ПнЗх : Rumb.x)))),
+                                             Градуси = table.Grade,
+                                             Хвилини = table.Minutes,
+                                             Довжина = Convert.ToDouble(table.Length),
+                                         }).ToList();
 
             dataGrid.ItemsSource = collectionСoordinates;
 
+        }
+    }
+
+    class DeleteDataLocalDB//удаление дынных из БД
+    {
+        int index = 0;//получение значение ID выделеного столбца
+        DataContext dc = null;//подключение к БД
+
+        public void IndexItem(DataGrid showTablePlotListDataGrid, DataContext dc)
+        {
+            var selectedCell = showTablePlotListDataGrid.SelectedCells[0];
+            var cellContent = selectedCell.Column.GetCellContent(selectedCell.Item);
+            index = int.Parse((cellContent as TextBlock).Text);//получение значение ID выделеного столбца
+            this.dc = dc;//подключение к БД
+        }
+
+        public void DeleteDataFromPlotList(DataGrid showTablePlotListDataGrid)//удаление дынных из БД таблицы PlotList
+        {//данные из дочерней таблицы Journal будут удалятся автоматически каскадно
+            Table <PlotList> tablePlotList = dc.GetTable<PlotList>();
+
+            var collectionСoordinates = (from table in tablePlotList
+                                         where table.Id == index
+                                         select table);//выбираем строку которую необходимо удалить
+
+            tablePlotList.DeleteAllOnSubmit(collectionСoordinates);//удаляем выбраную строку из БД           
+            dc.SubmitChanges();//сохраняем изминения
+
+            showTablePlotListDataGrid.ItemsSource = tablePlotList;//обновляем отоброжаемую таблицу в DataGrid
         }
     }
 }

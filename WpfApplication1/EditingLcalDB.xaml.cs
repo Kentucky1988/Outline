@@ -54,43 +54,45 @@ namespace WpfApplication1
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)//Сохранение изминений БД
         {
-            int x = 0;           
+            if (MessageBox.Show("Ви бажаєте зберегти зміни в БД?", "Збереження змін", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+            {
+                int x = 0;
 
-            switch ((sender as Button).Name)
-            {
-                case "Employe":
-                    x = 0;
-                    break;
-                case "Leshoz":
-                    x = 3;
-                    break;
-                case "Forestry":
-                    x = 6;
-                    break;
-                case "Felling":
-                    x = 9;
-                    break;
-                default:                   
-                    break;
-            }
+                switch ((sender as Button).Name)
+                {
+                    case "Employe":
+                        x = 0;
+                        break;
+                    case "Leshoz":
+                        x = 3;
+                        break;
+                    case "Forestry":
+                        x = 6;
+                        break;
+                    case "Felling":
+                        x = 9;
+                        break;
+                    default:
+                        break;
+                }
 
-            connection.Open();
-            command = (SqlCommand)arrayList[x];
-            adapter = (SqlDataAdapter)arrayList[x + 1];
-            dataTable = (DataTable)arrayList[x + 2];
-            cmbd = new SqlCommandBuilder(adapter);
-            try
-            {
-                adapter.Update(dataTable);
-                connection.Close();
-                MessageBox.Show("Зміни успішно збережено");
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("Вкажіть П.І.Б. і посаду");
-            }
+                connection.Open();
+                command = (SqlCommand)arrayList[x];
+                adapter = (SqlDataAdapter)arrayList[x + 1];
+                dataTable = (DataTable)arrayList[x + 2];
+                cmbd = new SqlCommandBuilder(adapter);
+                try
+                {
+                    adapter.Update(dataTable);
+                    connection.Close();
+                    MessageBox.Show("Зміни успішно збережено");
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Вкажіть П.І.Б. і посаду");
+                }
+            }            
         }
-
     }
 }
 
