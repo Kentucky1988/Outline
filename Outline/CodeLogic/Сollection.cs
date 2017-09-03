@@ -1,5 +1,5 @@
-﻿using System.Collections.ObjectModel;
-using System.Runtime.CompilerServices;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Windows;
 
 [assembly: InternalsVisibleTo("Outline.Test")]
@@ -14,14 +14,14 @@ namespace WpfApplication1
         double Довжина {get; set;}
     }
 
-    public enum Rumb 
+    public enum Rumb
     {
         ПнСх, ПдСх, ПдЗх, ПнЗх, x
     }
 
    class Points : IPoints
     {
-        private double мinutes; //минты
+        private int мinutes; //минты
         private int grade; //градусы
 
         public Rumb Румб { get; set; }
@@ -44,7 +44,7 @@ namespace WpfApplication1
                 { grade = value; };
             }
         }
-        public double Хвилини
+        public int Хвилини
         {
             get { return мinutes; }
             set
@@ -61,9 +61,10 @@ namespace WpfApplication1
         public double Довжина { get; set; }
 
         ObservableCollection<Points> collection = new ObservableCollection<Points>();
-        public ObservableCollection<Points> Collection()
+        public List<Points> Collection()
         {
-            return collection;
+            List<Points> colectionPoint = new List<Points>(collection);
+            return colectionPoint;
         }
     }
 
@@ -72,7 +73,7 @@ namespace WpfApplication1
         public string Номер { get; set; }
         public string Румб { get; set; }
         public int Градус { get; set; }
-        public double Хвилин { get; set; }
+        public int Хвилин { get; set; }
         public double Довжина { get; set; }
     }
 }

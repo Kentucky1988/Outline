@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
@@ -13,9 +14,9 @@ namespace WpfApplication1
     class Class1 : Window
     {
         Point[] myPoligon;//масив координат ХУ полигона
-        Point[] myBinding;//масив координат ХУ привязки  
-               
-        public Point[] CalculationCoordinates<T>(ObservableCollection<T> сollection, int[] array, int x) where T : IPoints//расчет координат
+        Point[] myBinding;//масив координат ХУ привязки
+
+        public Point[] CalculationCoordinates(List<Points> сollection, int[] array, int x)//расчет координат
         {
             int a = сollection.Count + 1;//длина масива + координаты первой точки
             Point[] arrayPoligon = new Point[a];//создаем масив координат ХУ
@@ -23,18 +24,18 @@ namespace WpfApplication1
             {
                 if (i == 0 && x == 0)//координаты полигона
                 {
-                    arrayPoligon[0].X = array[0];  //координаты первой точки Х полигона: ширина окна / 2     
-                    arrayPoligon[0].Y = array[1];  //координаты первой точки Y полигона: высота окна / 2           
+                    arrayPoligon[0].X = array[0];  //координаты первой точки Х полигона: ширина окна / 2
+                    arrayPoligon[0].Y = array[1];  //координаты первой точки Y полигона: высота окна / 2
                 }
-                else if (i == 0 && x == 1)//координаты привязки 
+                else if (i == 0 && x == 1)//координаты привязки
                 {
                     if (array[2] > myPoligon.Length - 1)
                     {
                         MessageBox.Show("Перевірте правильность вводу номера точки від якої будете робити прив'язку");
                     }
-                                        
-                    arrayPoligon[0].X = myPoligon[array[2] - 1].X; //координаты первой точки Х привязки     
-                    arrayPoligon[0].Y = myPoligon[array[2] - 1].Y; //координаты первой точки Y привязки          
+
+                    arrayPoligon[0].X = myPoligon[array[2] - 1].X; //координаты первой точки Х привязки
+                    arrayPoligon[0].Y = myPoligon[array[2] - 1].Y; //координаты первой точки Y привязки
                 }
                 else
                 {
@@ -131,7 +132,7 @@ namespace WpfApplication1
             }
         }
 
-        public double Discrepancy(Point[] array) //рассчитывает неувязку 
+        public double Discrepancy(Point[] array) //рассчитывает неувязку
         {
             Point A = array[0]; //координаты первой точки
             Point B = array[array.Length - 1]; //координаты последней точки
@@ -139,11 +140,11 @@ namespace WpfApplication1
             return Math.Sqrt(Math.Pow(A.X - B.X, 2) + Math.Pow(A.Y - B.Y, 2));
         }
 
-        public Canvas Number(ObservableCollection<Points> coordinatesPolygon, ObservableCollection<Points> coordinatesBinding, int[] array)//расчет координат номеров линий
+        public Canvas Number(List<Points> coordinatesPolygon, List<Points> coordinatesBinding, int[] array)//расчет координат номеров линий
         {
             Canvas numberLines = new Canvas(); //отображение номеров линий
             myPoligon = CalculationCoordinates(coordinatesPolygon, array, 0);//принимаем масив координат ХУ полигона
-            myBinding = CalculationCoordinates(coordinatesBinding, array, 1);//принимаем масив координат ХУ привязки  
+            myBinding = CalculationCoordinates(coordinatesBinding, array, 1);//принимаем масив координат ХУ привязки
 
             for (int i = 0; i < myPoligon.Length; i++)//номера точек  полигона
             {
@@ -222,18 +223,18 @@ namespace WpfApplication1
             geometry.Figures = figureCollection;
 
             Path path = new Path();//последовательноть линий
-            path.Stroke = Brushes.Black;//цвет линии      
+            path.Stroke = Brushes.Black;//цвет линии
             path.StrokeThickness = 1; //толшина линии
             path.Data = geometry;
 
-            return path;//возврат полигона 
+            return path;//возврат полигона
         }
 
-        public string[] Info()//создание масива(площадь, неувязка) 
+        public string[] Info()//создание масива(площадь, неувязка)
         {
             string[] array = new string[2];
-            array[0] = Math.Round(Area(myPoligon), 2).ToString(); //площадь    
-            array[1] = Math.Round(Discrepancy(myPoligon), 2).ToString();//неувязка    
+            array[0] = Math.Round(Area(myPoligon), 2).ToString(); //площадь
+            array[1] = Math.Round(Discrepancy(myPoligon), 2).ToString();//неувязка
             return array;
         }
     }

@@ -1,8 +1,8 @@
 ﻿<Window x:Class="WpfApplication1.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:local="clr-namespace:WpfApplication1"  
-        Title="Абрис" Width="750" Height="550" MinWidth="700" MinHeight="550">
+        xmlns:local="clr-namespace:WpfApplication1"
+        Title="Абрис" Width="850" Height="550" MinWidth="840" MinHeight="550">
 
     <Grid  Name="abrus">
         <Grid.ColumnDefinitions>
@@ -20,8 +20,10 @@
                 <MenuItem Header="Файл">
                     <MenuItem Header="Вихід" Click="ExitMenuItem_Click" />
                 </MenuItem>
-                <MenuItem Header="Данні">
-                    <MenuItem Header="Редагування БД" Click="editingLcalDB_Click"/>
+                <MenuItem Header="Робота з БД">
+                    <MenuItem Header="Редагуванти данні підприємства" Click="editingLcalDB_Click"/>
+                    <MenuItem Header="Зберегти зйомку в БД" Click="savePlanLcalDB_Click"/>
+                    <MenuItem Header="Вибрати зйомку в БД" Click="openPlanLcalDB_Click"/>
                 </MenuItem>
                 <MenuItem Header="Довідка">
                     <MenuItem Header="Інструкція"/>
@@ -80,7 +82,7 @@
                     <Label Content="План накреслив: Посада"/>
                     <Label Name="planDrew" MinWidth="80" Padding="5"/>
                     <Label Content="П.І.Б."/>
-                    <ComboBox Name="planDrewFN"  MinWidth="80" Padding="5" DropDownClosed="shotPerformedFN_DropDownClosed" DropDownOpened="ComboBox_DropDownOpened"/>
+                    <ComboBox Name="planDrewFN"  MinWidth="80" Padding="5" DropDownClosed="planDrew_DropDownClosed" DropDownOpened="planDrewFN_DropDownOpened"/>
                 </StackPanel>
             </StackPanel>
             <StackPanel Grid.Column="1" Grid.ColumnSpan="2">

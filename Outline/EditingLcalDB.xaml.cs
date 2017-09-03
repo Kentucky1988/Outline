@@ -11,14 +11,14 @@ namespace WpfApplication1
     /// Логика взаимодействия для EditingLcalDB.xaml
     /// </summary>
     public partial class EditingLcalDB : Window
-    {        
+    {
         SqlConnection connection;
         SqlCommand command;
         SqlDataAdapter adapter;
         DataTable dataTable;
         SqlCommandBuilder cmbd;
 
-        ArrayList arrayList = new ArrayList();  
+        ArrayList arrayList = new ArrayList();
 
         public EditingLcalDB()
         {
@@ -48,54 +48,50 @@ namespace WpfApplication1
 
             catch (Exception)
             {
-                MessageBox.Show("Нажаль не вдалось підключитись до файлів Бази Данних. Спробуйте ще раз, або перезапустіть программу");
+                MessageBox.Show("Помилка відкриття БД");
             }
         }
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)//Сохранение изминений БД
         {
-            int x = 0;// если Employee          
-
-            switch ((sender as Button).Name)
-            {             
-                case "Leshoz":
-                    x = 3;
-                    break;
-                case "Forestry":
-                    x = 6;
-                    break;
-                case "Felling":
-                    x = 9;
-                    break;               
-            }
-
-            try
+            if (MessageBox.Show("Ви бажаєте зберегти зміни в БД?", "Збереження змін", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
             {
+                int x = 0;
+
+                switch ((sender as Button).Name)
+                {
+                    case "Employe":
+                        x = 0;
+                        break;
+                    case "Leshoz":
+                        x = 3;
+                        break;
+                    case "Forestry":
+                        x = 6;
+                        break;
+                    case "Felling":
+                        x = 9;
+                        break;
+                    default:
+                        break;
+                }
+
                 connection.Open();
                 command = (SqlCommand)arrayList[x];
                 adapter = (SqlDataAdapter)arrayList[x + 1];
                 dataTable = (DataTable)arrayList[x + 2];
                 cmbd = new SqlCommandBuilder(adapter);
+                try
+                {
+                    adapter.Update(dataTable);
+                    connection.Close();
+                    MessageBox.Show("Зміни успішно збережено");
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Вкажіть П.І.Б. і посаду");
+                }
             }
-            catch (Exception)
-            {
-                connection.Close();
-                MessageBox.Show("Нажаль не вдалось підключитись до файлів Бази Данних. Спробуйте ще раз, або перезапустіть программу");
-            }
-            
-            try
-            {
-                adapter.Update(dataTable);
-                connection.Close();
-                MessageBox.Show("Зміни успішно збережено");
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("Вкажіть П.І.Б. і посаду");
-            }
-
-            connection.Close();
         }
     }
 }
-

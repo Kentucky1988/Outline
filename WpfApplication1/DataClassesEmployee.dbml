@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Employee" Class="DataClassesEmployeeDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\Employee.mdf;Integrated Security=True" SettingsObjectName="WpfApplication1.Properties.Settings" SettingsPropertyName="EmployeeConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Employe" Member="Employe">
+    <Type Name="Employe">
+      <Column Name="Employe" Member="Employe1" Type="System.String" DbType="NVarChar(30) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Position" Type="System.String" DbType="NVarChar(30) NOT NULL" CanBeNull="false" />
+      <Association Name="Employe_PlotList" Member="PlotList" ThisKey="Employe1" OtherKey="ShotPerformed" Type="PlotList" />
+      <Association Name="Employe_PlotList1" Member="PlotList1" ThisKey="Employe1" OtherKey="PlanDrew" Type="PlotList" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Felling" Member="Felling">
+    <Type Name="Felling">
+      <Column Name="Felling" Member="Felling1" Type="System.String" DbType="NVarChar(30) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="Felling_PlotList" Member="PlotList" ThisKey="Felling1" OtherKey="Felling" Type="PlotList" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Forestry" Member="Forestry">
+    <Type Name="Forestry">
+      <Column Name="Forestry" Member="Forestry1" Type="System.String" DbType="NVarChar(30) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Leshoz" Type="System.String" DbType="NVarChar(30) NOT NULL" CanBeNull="false" />
+      <Association Name="Forestry_PlotList" Member="PlotList" ThisKey="Forestry1" OtherKey="Forestry" Type="PlotList" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Journal" Member="Journal">
+    <Type Name="Journal">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Id_PlotList" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Identifier" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Rumb" Type="System.String" DbType="NVarChar(4) NOT NULL" CanBeNull="false" />
+      <Column Name="Grade" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Minutes" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Length" Type="System.Decimal" DbType="Decimal(5,2) NOT NULL" CanBeNull="false" />
+      <Association Name="PlotList_Journal" Member="PlotList" ThisKey="Id_PlotList" OtherKey="Id" Type="PlotList" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Leshoz" Member="Leshoz">
+    <Type Name="Leshoz">
+      <Column Name="Leshoz" Member="Leshoz1" Type="System.String" DbType="NVarChar(30) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="Leshoz_PlotList" Member="PlotList" ThisKey="Leshoz1" OtherKey="Leshoz" Type="PlotList" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PlotList" Member="PlotList">
+    <Type Name="PlotList">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Leshoz" Type="System.String" DbType="NVarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="Forestry" Type="System.String" DbType="NVarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="Felling" Type="System.String" DbType="NVarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="Kvartal" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Vudel" Type="System.Decimal" DbType="Decimal(5,2) NOT NULL" CanBeNull="false" />
+      <Column Name="PointNumber" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Area" Type="System.Decimal" DbType="Decimal(5,2) NOT NULL" CanBeNull="false" />
+      <Column Name="Year" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ShotPerformed" Type="System.String" DbType="NVarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="PlanDrew" Type="System.String" DbType="NVarChar(30) NOT NULL" CanBeNull="false" />
+      <Association Name="PlotList_Journal" Member="Journal" ThisKey="Id" OtherKey="Id_PlotList" Type="Journal" />
+      <Association Name="Employe_PlotList" Member="Employe" ThisKey="ShotPerformed" OtherKey="Employe1" Type="Employe" IsForeignKey="true" />
+      <Association Name="Employe_PlotList1" Member="Employe1" ThisKey="PlanDrew" OtherKey="Employe1" Type="Employe" IsForeignKey="true" />
+      <Association Name="Felling_PlotList" Member="Felling1" ThisKey="Felling" OtherKey="Felling1" Type="Felling" IsForeignKey="true" />
+      <Association Name="Forestry_PlotList" Member="Forestry1" ThisKey="Forestry" OtherKey="Forestry1" Type="Forestry" IsForeignKey="true" />
+      <Association Name="Leshoz_PlotList" Member="Leshoz1" ThisKey="Leshoz" OtherKey="Leshoz1" Type="Leshoz" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>
