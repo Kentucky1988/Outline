@@ -16,7 +16,7 @@ namespace WpfApplication1
         Point[] myPoligon;//масив координат ХУ полигона
         Point[] myBinding;//масив координат ХУ привязки
 
-        public Point[] CalculationCoordinates(List<Points> сollection, int[] array, int x)//расчет координат
+        public Point[] CalculationCoordinates<T>(List<T> сollection, int[] array, int x) where T : IPoints//расчет координат
         {
             int a = сollection.Count + 1;//длина масива + координаты первой точки
             Point[] arrayPoligon = new Point[a];//создаем масив координат ХУ

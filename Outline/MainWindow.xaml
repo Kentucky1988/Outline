@@ -1,7 +1,7 @@
 ﻿<Window x:Class="WpfApplication1.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:local="clr-namespace:WpfApplication1"
+        xmlns:local="clr-namespace:WpfApplication1"  
         Title="Абрис" Width="850" Height="550" MinWidth="840" MinHeight="550">
 
     <Grid  Name="abrus">
@@ -18,7 +18,7 @@
         <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Left">
             <Menu>
                 <MenuItem Header="Файл">
-                    <MenuItem Header="Вихід" Click="ExitMenuItem_Click" />
+                    <MenuItem Header="Вихід"/>
                 </MenuItem>
                 <MenuItem Header="Робота з БД">
                     <MenuItem Header="Редагуванти данні підприємства" Click="editingLcalDB_Click"/>
@@ -36,13 +36,13 @@
             <Label HorizontalAlignment="Center" Content="П Л А Н" FontWeight="Bold" FontSize="17" />
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
                 <Label Content=" Лісгосп:"/>
-                <ComboBox Name="leshoz" MinWidth="100" Padding="5" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" DropDownOpened="ComboBox_DropDownOpened"/>
+                <ComboBox Name="leshoz" MinWidth="100" Padding="5" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" DropDownOpened="leshoz_DropDownOpened"/>
                 <Label Content="Лісництво:"/>
-                <ComboBox Name="forestry" MinWidth="100" Padding="5" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" DropDownOpened="ComboBox_DropDownOpened"/>
+                <ComboBox Name="forestry" MinWidth="100" Padding="5" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" DropDownOpened="forestry_DropDownOpened"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
                 <Label Content="Ділянка відведена під: "/>
-                <ComboBox Name="felling" MinWidth="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" DropDownOpened="ComboBox_DropDownOpened"/>
+                <ComboBox Name="felling" MinWidth="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" DropDownOpened="felling_DropDownOpened"/>
                 <Label Content=" на "/>
                 <TextBox Name="year" MinWidth="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
                 <Label Content=" рік"/>
@@ -76,7 +76,7 @@
                     <Label Content=" Зйомку виконав: Посада"/>
                     <Label Name="shotPerformed" MinWidth="80" Padding="5"/>
                     <Label Content="П.І.Б."/>
-                    <ComboBox Name="shotPerformedFN" MinWidth="80" Padding="5" DropDownClosed="shotPerformedFN_DropDownClosed" DropDownOpened="ComboBox_DropDownOpened"/>
+                    <ComboBox Name="shotPerformedFN" MinWidth="80" Padding="5" DropDownClosed="shotPerformedFN_DropDownClosed" DropDownOpened="shotPerformedFN_DropDownOpened"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="5">
                     <Label Content="План накреслив: Посада"/>

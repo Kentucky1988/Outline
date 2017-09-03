@@ -1,6 +1,9 @@
-﻿using System.Data.SqlClient;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
+using WpfApplication1.CodeLogic;
 
 namespace WpfApplication1
 {
@@ -8,12 +11,13 @@ namespace WpfApplication1
     /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
-    {       
+    {
         Class1 class1;
         MainWindowLogic mainWindowLogic;
-        Points coordinatesPolygon; //съeмка полигона 
-        Points coordinatesBinding; //съeмка привязки
-        SqlConnection cn;//подключение к БД
+        Points coordinatesPolygon; //сьемка полигона 
+        Points coordinatesBinding; //сьемка привязки
+        InteractionLogicLocalDB logicLocalDB;//отображать значения в ComboBox из БД
+        SaveFromLocalDB saveFromLocalDB;//клас сохранения, извличения, удаления сьемок в БД        
 
         public MainWindow()
         {
@@ -24,14 +28,15 @@ namespace WpfApplication1
             coordinatesBinding = new Points();
             dataGrid.ItemsSource = coordinatesPolygon.Collection();
             dataGridBindg.ItemsSource = coordinatesBinding.Collection();
-            cn = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=E:\GitHub\Абрис\Outline\Outline\Employee.mdf;Integrated Security=True");//подключение к БД
+            logicLocalDB = new InteractionLogicLocalDB();//отображать значения в ComboBox из БД
+            saveFromLocalDB = new SaveFromLocalDB();//клас сохранения, извличения, удаления сьемок в БД
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)//построение съемки
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
             myGrid.Children.Clear();//очистка предыдущего изображения на полигоне
             mainWindowLogic.ActualWidthHeight();//координаты первой точки ХY
-            myGrid.Children.Add(class1.Number(coordinatesPolygon.Collection(), coordinatesBinding.Collection(), mainWindowLogic.Array));//добавление номеров точек на полигон
+            myGrid.Children.Add(class1.Number(dataGrid.ItemsSource as List<Points>, dataGridBindg.ItemsSource as List<Points>, mainWindowLogic.Array));//добавление номеров точек на полигон
             myGrid.Children.Add(class1.Poligon());//построение полигона
             mainWindowLogic.Info();//площадь, неувязка
         }
@@ -52,100 +57,93 @@ namespace WpfApplication1
 
         private void buttonClear_Click(object sender, RoutedEventArgs e)//очистка 
         {
-            mainWindowLogic.Clear(coordinatesPolygon, coordinatesBinding);
-        }
-        
-        private void ComboBox_DropDownOpened(object sender, System.EventArgs e)//обновление содержимого выпадающего списка при его открытие
-        {
-            string table = null;
-            ComboBox comboBoxName = sender as ComboBox;
-
-            switch (comboBoxName.Name)
-            {
-                case "leshoz":
-                    table = "Leshoz";
-                    break;
-                case "forestry":
-                    table = "Forestry";
-                    break;
-                case "felling":
-                    table = "Felling";
-                    break;
-                case "shotPerformedFN":
-                    table = "Employee";
-                    break;
-                case "planDrewFN":
-                    table = "Employee";
-                    break;
-            }
-
-            try
-            {
-                cn.Open();
-            }
-            catch (System.Exception)
-            {
-                cn.Close();
-                MessageBox.Show("Нажаль не вдалось підключитись до файлів Бази Данних. Спробуйте ще раз, або перезапустіть программу");
-            }
-           
-            string strSQL = $"SELECT * FROM {table}";
-            SqlCommand myCommand = new SqlCommand(strSQL, cn);
-            SqlDataReader dr = myCommand.ExecuteReader();
-
-            (comboBoxName).Items.Clear();//удаление содержимого выпадающего списка чтоб небыло (список * 2)
-
-            while (dr.Read())// добавление колекции в ComoBox      
-            {
-                string sName = dr.GetString(0);
-
-                (comboBoxName).Items.Add(sName);        
-            }
-
-            cn.Close();
+            mainWindowLogic.Clear(coordinatesPolygon, coordinatesBinding, dataGrid, dataGridBindg);
         }
 
-        private void shotPerformedFN_DropDownClosed(object sender, System.EventArgs e)//зависимость TextBox от выбора в ComboBox таблица Employee
+        private void leshoz_DropDownOpened(object sender, System.EventArgs e)//обновление содержимого выпадающего списка leshoz при его открытие
         {
-            ComboBox comboBox = sender as ComboBox;
+            logicLocalDB.ComboBox_Opened(leshoz);
+        }
 
-            try
-            {
-                cn.Open();
-            }
-            catch (System.Exception)
-            {
-                cn.Close();
-                MessageBox.Show("Нажаль не вдалось підключитись до файлів Бази Данних. Спробуйте ще раз, або перезапустіть программу");
-            }
-            string strSQL = $"SELECT * FROM Employee WHERE Name = '{comboBox.Text}'";
-            SqlCommand myCommand = new SqlCommand(strSQL, cn);
-            SqlDataReader dr = myCommand.ExecuteReader();
+        private void felling_DropDownOpened(object sender, System.EventArgs e)//обновление содержимого выпадающего списка felling при его открытие
+        {
+            logicLocalDB.ComboBox_Opened(felling);
+        }
 
-            while (dr.Read())
-            {
-                if (comboBox.Name == "shotPerformedFN")
-                {
-                    shotPerformed.Content = dr[1].ToString();
-                }
-                else
-                {
-                    planDrew.Content = dr[1].ToString();
-                }
-            }
+        private void shotPerformedFN_DropDownOpened(object sender, System.EventArgs e)//обновление содержимого выпадающего списка shotPerformedFN при его открытие
+        {
+            logicLocalDB.ComboBox_Opened(shotPerformedFN);
+        }
 
-            cn.Close();
+        private void planDrewFN_DropDownOpened(object sender, System.EventArgs e)//обновление содержимого выпадающего списка planDrewFN при его открытие
+        {
+            logicLocalDB.ComboBox_Opened(planDrewFN);
+        }
+
+        private void forestry_DropDownOpened(object sender, System.EventArgs e)//обновление содержимого выпадающего forestry списка при его открытие
+        {                                                                      //в зависимости от значения в ComboBox leshoz
+            logicLocalDB.ComboBox_Opened(leshoz, forestry);
+        }
+
+        private void shotPerformedFN_DropDownClosed(object sender, System.EventArgs e)//зависимость Label shotPerformed от выбора в ComboBox таблица Employee
+        {
+            logicLocalDB.ComboBox_Opened(sender as ComboBox, shotPerformed);
+        }
+
+        private void planDrew_DropDownClosed(object sender, System.EventArgs e)//зависимость Label planDrew от выбора в ComboBox таблица Employee
+        {
+            logicLocalDB.ComboBox_Opened(sender as ComboBox, planDrew);
         }
 
         private void editingLcalDB_Click(object sender, RoutedEventArgs e)//открытие окна редактирования БД
         {
-            EditingLcalDB showEditingLcalDB = new EditingLcalDB();
-            showEditingLcalDB.Show();
+            EditingLcalDB editingLcalDB = new EditingLcalDB();
+            editingLcalDB.Owner = this;//зaкрывать окно в cлучае закрытия главного окна
+            editingLcalDB.Show();
         }
 
-        private void ExitMenuItem_Click(object sender, RoutedEventArgs e)//Выход
+        private ArrayList ColectionContentComboBox()//создаем колекцию елементов главного окна
         {
-            this.Close();
+            ArrayList colectionElement = new ArrayList();
+
+            colectionElement.Add(lableArea);//0
+            colectionElement.Add(leshoz);//1
+            colectionElement.Add(forestry);//2
+            colectionElement.Add(felling);//3
+            colectionElement.Add(kvartal);//4
+            colectionElement.Add(vudel);//5
+            colectionElement.Add(year);//6
+            colectionElement.Add(pointNumber);//7
+            colectionElement.Add(shotPerformedFN);//8
+            colectionElement.Add(planDrewFN);//9 
+            colectionElement.Add(shotPerformed);//10
+            colectionElement.Add(planDrew);//11
+            colectionElement.Add(dataGrid);//12
+            colectionElement.Add(dataGridBindg);//13
+            colectionElement.Add(myGrid);//14
+            colectionElement.Add(class1);//15
+            colectionElement.Add(mainWindowLogic);//16 
+
+            return colectionElement;
+        }
+
+        private void savePlanLcalDB_Click(object sender, RoutedEventArgs e) //добавление сьемки в БД
+        {
+            saveFromLocalDB.Reset((dataGrid.ItemsSource as List<Points>).Count);//обновление значения строки сообщения и передача количества точек в полигоне
+            saveFromLocalDB.SavePlotListDB(ColectionContentComboBox());//добавление данных сьемки в БД
+            saveFromLocalDB.SaveJournalPolygon(dataGrid.ItemsSource as List<Points> , 1);//добавление журнала сьемки УЧАСТКА в БД
+            saveFromLocalDB.SaveJournalPolygon(dataGridBindg.ItemsSource as List<Points>, 0);//добавление журнала сьемки ПРИВЯЗКИ в БД
+
+            saveFromLocalDB.MessageShow();//вывод сообщения о результатах работы
+        }
+
+        private void openPlanLcalDB_Click(object sender, RoutedEventArgs e)//открытие окна для выбора участка из БД для отображения
+        {
+            ShowTableDbPlotList showTableDbPlotList = new ShowTableDbPlotList(ColectionContentComboBox());
+            showTableDbPlotList.Owner = this;//закрывать окно в cлучае закрытия главного окна 
+            showTableDbPlotList.Show();
         }
     }
 }
+
+

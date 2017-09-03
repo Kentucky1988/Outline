@@ -13,7 +13,7 @@ namespace WpfApplication1.Test
     {
         public Rumb Румб { get; set; }    //румб
         public int Градуси { get; set; }    //градус
-        public double Хвилини { get; set; } //минуты
+        public int Хвилини { get; set; } //минуты
         public double Довжина { get; set; } //длина
     }
 

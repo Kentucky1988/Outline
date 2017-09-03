@@ -2,16 +2,14 @@
 using System.Collections.ObjectModel;
 using System.Windows;
 
-[assembly: InternalsVisibleTo("Outline.Test")]
-
 namespace WpfApplication1
 {
     interface IPoints
     {
         Rumb Румб { get; set; }
-        int Градуси {get; set;}
-        double Хвилини {get; set;}
-        double Довжина {get; set;}
+        int Градуси { get; set; }
+        int Хвилини { get; set; }
+        double Довжина { get; set; }
     }
 
     public enum Rumb
@@ -19,7 +17,7 @@ namespace WpfApplication1
         ПнСх, ПдСх, ПдЗх, ПнЗх, x
     }
 
-   class Points : IPoints
+    class Points : IPoints
     {
         private int мinutes; //минты
         private int grade; //градусы

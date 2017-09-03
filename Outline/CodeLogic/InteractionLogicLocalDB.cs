@@ -17,7 +17,7 @@ namespace WpfApplication1.CodeLogic
 
         public InteractionLogicLocalDB()
         {
-            cn = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=E:\GitHub\Абрис\Outline\WpfApplication1\Employee.mdf;Integrated Security=True");//подключение к БД
+            cn = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=E:\GitHub\Абрис\Outline\Outline\Employee.mdf;Integrated Security=True");//подключение к БД
         }
 
         public void ComboBox_Opened(ComboBox comboBox)//обновление содержимого выпадающего списка при его открытие
@@ -231,7 +231,7 @@ namespace WpfApplication1.CodeLogic
 
         public SaveFromLocalDB()
         {
-            dc = new DataContext(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=E:\GitHub\Абрис\Outline\WpfApplication1\Employee.mdf;Integrated Security=True");
+            dc = new DataContext(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=E:\GitHub\Абрис\Outline\Outline\Employee.mdf;Integrated Security=True");
         }
 
         public void Reset(int x)//обновление значения глобальных переменных

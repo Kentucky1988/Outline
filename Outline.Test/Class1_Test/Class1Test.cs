@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Windows;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Collections.Generic;
 
 namespace WpfApplication1.Test
 {
@@ -80,7 +81,7 @@ namespace WpfApplication1.Test
          //1
 
             Help_Class1Test newcolection = new Help_Class1Test();
-            ObservableCollection<TestPoint> сollection = new ObservableCollection<TestPoint>(newcolection.ReturnColection());
+            List<TestPoint> сollection = new List<TestPoint>(newcolection.ReturnColection());
             int[] array = { 400, 900, 0 };//X,Y,номер точки от которой будут делать привязку
             Point[] expected = newcolection.ArrayPoints();
 
@@ -103,7 +104,7 @@ namespace WpfApplication1.Test
          //1
 
             Help_Class1Test newcolection = new Help_Class1Test();
-            ObservableCollection<TestPoint> сollection = new ObservableCollection<TestPoint>(newcolection.ReturnColection());
+            List<TestPoint> сollection = new List<TestPoint>(newcolection.ReturnColection());
             int[] array = { 400, 900, 1 };//X,Y,номер точки от которой будут делать привязку
             Point[] expected = newcolection.ArrayPoints();
 

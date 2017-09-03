@@ -46,3 +46,5 @@ E:\GitHub\Абрис\Outline\Outline\obj\Debug\Outline.csproj.GenerateResource.C
 E:\GitHub\Абрис\Outline\Outline\obj\Debug\WpfApplication1.exe
 E:\GitHub\Абрис\Outline\Outline\obj\Debug\WpfApplication1.pdb
 E:\GitHub\Абрис\Outline\Outline\obj\Debug\Outline.csprojResolveAssemblyReference.cache
+E:\GitHub\Абрис\Outline\Outline\obj\Debug\ShowTableDbPlotList.g.cs
+E:\GitHub\Абрис\Outline\Outline\obj\Debug\ShowTableDbPlotList.baml
