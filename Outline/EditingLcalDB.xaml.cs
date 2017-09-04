@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Data;
+using System.Data.Linq;
 using System.Data.SqlClient;
 using System.Windows;
 using System.Windows.Controls;
@@ -23,8 +24,8 @@ namespace WpfApplication1
         public EditingLcalDB()
         {
             InitializeComponent();
-            connection = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=E:\GitHub\Абрис\Outline\Outline\Employee.mdf;Integrated Security=True");
-            EmployeeGrid(employeeDataGrid, "Employee");
+            connection = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=E:\GitHub\Абрис\Outline\Outline\Employee.mdf;Integrated Security=True");//подключение к БД
+            EmployeeGrid(employeeDataGrid, "Employe");
             EmployeeGrid(leshozDataGrid, "Leshoz");
             EmployeeGrid(forestryDataGrid, "Forestry");
             EmployeeGrid(fellingDataGrid, "Felling");

@@ -667,7 +667,7 @@ namespace WpfApplication1
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="PlotList_Journal", Storage="_PlotList", ThisKey="Id_PlotList", OtherKey="Id", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="PlotList_Journal", Storage="_PlotList", ThisKey="Id_PlotList", OtherKey="Id", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
 		public PlotList PlotList
 		{
 			get

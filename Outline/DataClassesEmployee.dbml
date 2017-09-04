@@ -30,7 +30,7 @@
       <Column Name="Grade" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="Minutes" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="Length" Type="System.Decimal" DbType="Decimal(5,2) NOT NULL" CanBeNull="false" />
-      <Association Name="PlotList_Journal" Member="PlotList" ThisKey="Id_PlotList" OtherKey="Id" Type="PlotList" IsForeignKey="true" />
+      <Association Name="PlotList_Journal" Member="PlotList" ThisKey="Id_PlotList" OtherKey="Id" Type="PlotList" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
     </Type>
   </Table>
   <Table Name="dbo.Leshoz" Member="Leshoz">

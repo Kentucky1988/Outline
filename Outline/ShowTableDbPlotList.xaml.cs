@@ -26,7 +26,7 @@ namespace WpfApplication1
             logicLocalDB = new InteractionLogicLocalDB();//отображать значения в ComboBox из БД
             displayingDataLocalDB = new DisplayingDataLocalDB();//отображение данных из БД в главном окне
             deleteDataLocalDB = new DeleteDataLocalDB();//удаление дынных из БД
-            dc = new DataContext(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=E:\GitHub\Абрис\Outline\WpfApplication1\Employee.mdf;Integrated Security=True");
+            dc = new DataContext(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=E:\GitHub\Абрис\Outline\Outline\Employee.mdf;Integrated Security=True");
             logicLocalDB.ShowTablePlotListDataGrid(showTablePlotListDataGrid, dc, ColectionContentComboBox());
             this.colectionElement = colectionElement;
         }
